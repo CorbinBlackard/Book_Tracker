@@ -25,7 +25,7 @@
     <% end %>
 
     <!-- Show if the book is finished or unread -->
-    <p><%= book.read ? 'Finished' : 'Unread' %></p>
+    <p><%= book.read ? 'Finished' : 'Unfinished' %></p>
 
     <!-- Link to show the book details -->
     <%= link_to 'Show', book_path(book), class: 'button' %>
