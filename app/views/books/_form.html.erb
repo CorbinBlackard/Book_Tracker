@@ -40,6 +40,11 @@
     <%= form.select :rating, options_for_select([1, 2, 3, 4, 5], book.rating), { include_blank: "Select Rating" }, class: "form-control" %>
   </div>
 
+  <div class="field">
+    <%= form.label :total_pages %>
+    <%= form.number_field :total_pages, value: book.total_pages %>
+  </div>
+
   <div class="actions">
     <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>

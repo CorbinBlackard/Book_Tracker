@@ -3,6 +3,8 @@ class BooksController < ApplicationController
 
     def index
         @books = Book.all
+        @finished_books = Book.where(read: true) || []
+        @current_read = Book.where(read: false) || []
     end
 
     def show
@@ -45,6 +47,6 @@ class BooksController < ApplicationController
         end
 
         def book_params
-            params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating)
+            params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
         end
 end

@@ -256,3 +256,23 @@ body {
 .btn-primary:hover {
     background-color: #0056b3;
 }
+
+/* Style for the progress bar container */
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #f3f3f3;
+    /* Light gray background */
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Style for the actual progress bar */
+.progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    /* Green for completed progress */
+    border-radius: 5px;
+    transition: width 0.5s ease;
+    /* Smooth transition */
+}

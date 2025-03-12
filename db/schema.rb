@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_12_020655) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_12_204616) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_12_020655) do
     t.boolean "read"
     t.integer "page_number"
     t.integer "rating"
+    t.integer "total_pages"
   end
 
   create_table "posts", force: :cascade do |t|

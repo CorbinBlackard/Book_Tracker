@@ -7,22 +7,54 @@
 </section>
 
 <section class="book-listing">
-  <h2>Books Read</h2>
+  <h2>Current Reads</h2>
   <div class="books">
-    <% @books.each do |book| %>
-      <div class="book-card">
-        <h3><%= book.title %></h3>
-        <p><%= book.author %></p>
-        <p><%= book.genre %></p>
-        <p><%= book.page_number %> Pages</p>
-        <p><%= book.rating %> Stars</p>
-        <p><%= book.read ? 'Finished' : 'Unread' %> </p>
-        <%= link_to 'Show', book_path(book), class: 'button' %>
-        <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
-        <%= form_with(model: book, method: :delete) do |form| %>
-            <%= form.submit 'Destroy', class: 'button', data: { confirm: 'Are you sure you want to delete this book?' } %>
-        <% end %>
-      </div>
+    <% if @current_read.present? %>
+      <% @current_read.each do |book| %>
+        <div class="book-card">
+          <h3><%= book.title %></h3>
+          <p><%= book.author %></p>
+          <p><%= book.genre %></p>
+          <p>Current Page: <%= book.page_number %></p>
+          <p><%= book.percentage_completed.round(2) %> % completed out of <%= book.total_pages %> pages</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: <%= book.percentage_completed %>%">
+            </div>
+          </div>
+          <%= link_to 'Show', book_path(book), class: 'button' %>
+          <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
+          <%= form_with(model: book, method: :delete) do |form| %>
+              <%= form.submit 'Destroy', class: 'button', data: { confirm: 'Are you sure you want to delete this book?' } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No books currently being read.</p>
+    <% end %>
+  </div>
+</section>
+
+<section class="book-listing">
+  <h2>Completed Books</h2>
+  <div class="books">
+    <% if @finished_books.present? %>
+      <% @finished_books.each do |book| %>
+        <div class="book-card">
+          <h3><%= book.title %></h3>
+          <p><%= book.author %></p>
+          <p><%= book.genre %></p>
+          <p><%= book.page_number %> Pages</p>
+          <p><%= book.rating %> Stars</p>
+          <p><%= book.read ? 'Finished' : 'Unread' %> </p>
+          <%= link_to 'Show', book_path(book), class: 'button' %>
+          <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
+          <%= form_with(model: book, method: :delete) do |form| %>
+              <%= form.submit 'Destroy', class: 'button', data: { confirm: 'Are you sure you want to delete this book?' } %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No books have been read yet.</p>
     <% end %>
   </div>
 </section>
