@@ -27,6 +27,7 @@
     <!-- Completed Reads Section -->
     <div class="book-section">
       <h2>Completed Reads</h2>
+      <h3>Total Read: <%= @finished_books.count %></h3>
       <div class="books">
         <!-- Loop through the books that are completed -->
         <% @finished_books.each do |book| %>
