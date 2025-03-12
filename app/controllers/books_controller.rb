@@ -5,6 +5,7 @@ class BooksController < ApplicationController
         @books = Book.all
         @finished_books = Book.where(read: true) || []
         @current_read = Book.where(read: false) || []
+        @finished_books_count = Book.finished_books_count
     end
 
     def show

@@ -36,6 +36,7 @@
 
 <section class="book-listing">
   <h2>Completed Books</h2>
+  <h3>Total Finished Books: <%= @finished_books_count %></h3>
   <div class="books">
     <% if @finished_books.present? %>
       <% @finished_books.each do |book| %>
@@ -46,6 +47,11 @@
           <p><%= book.page_number %> Pages</p>
           <p><%= book.rating %> Stars</p>
           <p><%= book.read ? 'Finished' : 'Unread' %> </p>
+          <p><%= book.percentage_completed.round(2) %> % completed out of <%= book.total_pages %> pages</p>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: <%= book.percentage_completed %>%">
+            </div>
+          </div>
           <%= link_to 'Show', book_path(book), class: 'button' %>
           <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
           <%= form_with(model: book, method: :delete) do |form| %>

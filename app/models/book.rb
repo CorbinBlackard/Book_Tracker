@@ -11,4 +11,7 @@ class Book < ApplicationRecord
             0
         end
     end
+    def self.finished_books_count
+        where(read: true).count
+    end
 end
