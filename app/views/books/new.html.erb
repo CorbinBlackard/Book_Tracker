@@ -1,6 +1,10 @@
 <h1>New Book</h1>
+<!-- This is the header for the page, indicating that this form is for creating a new book -->
 
 <%= render 'form', book: @book %>
+<!-- This renders the partial '_form.html.erb' and passes the @book instance variable to it. 
+     The form will use this @book instance to create a new book -->
 
 <%= link_to 'Back', books_path %>
-
+<!-- This creates a link that directs the user back to the books index page.
+     It's used for navigation in case the user wants to cancel and go back -->

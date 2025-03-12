@@ -10,41 +10,49 @@
     </div>
   <% end %>
 
+  <!-- Title input field -->
   <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title, class: "form-control" %>
   </div>
 
+  <!-- Author input field -->
   <div class="field">
     <%= form.label :author %>
     <%= form.text_field :author, class: "form-control" %>
   </div>
 
+  <!-- Genre input field -->
   <div class="field">
     <%= form.label :genre %>
     <%= form.text_field :genre, class: "form-control" %>
   </div>
 
+  <!-- Page number input field -->
   <div class="field">
     <%= form.label :page_number %>
     <%= form.number_field :page_number, class: "form-control" %>
   </div>
 
+  <!-- Read checkbox input field -->
   <div class="field">
     <%= form.label :read %>
     <%= form.check_box :read %>
   </div>
 
+  <!-- Rating selection input field -->
   <div class="field">
     <%= form.label :rating %>
     <%= form.select :rating, options_for_select([1, 2, 3, 4, 5], book.rating), { include_blank: "Select Rating" }, class: "form-control" %>
   </div>
 
+  <!-- Total pages input field -->
   <div class="field">
     <%= form.label :total_pages %>
-    <%= form.number_field :total_pages, value: book.total_pages %>
+    <%= form.number_field :total_pages, class: "form-control", value: book.total_pages %> <!-- Removed unnecessary inline value assignment -->
   </div>
 
+  <!-- Submit button -->
   <div class="actions">
     <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>
