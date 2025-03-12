@@ -8,8 +8,7 @@
     <!-- Display the book's genre -->
     <p><%= book.genre %></p>
 
-    <!-- Display the current page and total pages -->
-    <p><%= book.page_number %> / <%= book.total_pages %> Pages</p>
+
 
     <!-- Only show progress bar if the book is not finished (book.read == false) -->
     <% unless book.read %>
@@ -21,6 +20,8 @@
         
         <!-- Display the percentage of progress -->
         <span class="progress-text"><%= book.progress_percentage %>%</span>
+        <!-- Display the current page and total pages -->
+        <p><%= book.page_number %> / <%= book.total_pages %> Pages</p>
     <% end %>
 
     <!-- Show if the book is finished or unread -->
