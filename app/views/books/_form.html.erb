@@ -1,46 +1,46 @@
 <%= form_with(model: book, local: true) do |form| %>
-    <% if book.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
-        <ul>
-          <% book.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :author %>
-      <%= form.text_field :author %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :genre %>
-      <%= form.text_field :genre %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :page_number %>
-      <%= form.number_field :page_number %>
-    </div>
-  
-    <div class="field">
-      <%= form.label :read %>
-      <%= form.check_box :read %>
-    </div>
-
-    <div class="field">
-      <%= form.label :rating %>
-      <%= form.select :rating, options_for_select([1, 2, 3, 4, 5], book.rating), { include_blank: "Select Rating" } %>
-    </div>
-  
-    <div class="actions">
-      <%= form.submit %>
+  <% if book.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+      <ul>
+        <% book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :author %>
+    <%= form.text_field :author, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :genre %>
+    <%= form.text_field :genre, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :page_number %>
+    <%= form.number_field :page_number, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :read %>
+    <%= form.check_box :read %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating %>
+    <%= form.select :rating, options_for_select([1, 2, 3, 4, 5], book.rating), { include_blank: "Select Rating" }, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>
