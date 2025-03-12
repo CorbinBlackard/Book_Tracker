@@ -1,0 +1,37 @@
+<h1><%= @book.title %></h1>
+
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @book.author %>
+</p>
+
+<p>
+  <strong>Genre:</strong>
+  <%= @book.genre %>
+</p>
+
+<p>
+  <strong>Page Number:</strong>
+  <%= @book.page_number %>
+</p>
+
+<p>
+  <strong>Read:</strong>
+  <%= @book.read ? 'Yes' : 'No' %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <% if @book.rating.present? %>
+    <%= @book.rating %> star<%= 's' if @book.rating > 1 %>
+  <% else %>
+    No rating yet
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>

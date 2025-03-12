@@ -1,0 +1,28 @@
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to Book Tracker</h1>
+    <p>Track all the books you've read and keep your collection organized!</p>
+    <a href="/books/new" class="cta-button">Add a New Book</a>
+  </div>
+</section>
+
+<section class="book-listing">
+  <h2>Books Read</h2>
+  <div class="books">
+    <% @books.each do |book| %>
+      <div class="book-card">
+        <h3><%= book.title %></h3>
+        <p><%= book.author %></p>
+        <p><%= book.genre %></p>
+        <p><%= book.page_number %> Pages</p>
+        <p><%= book.rating %> Stars</p>
+        <p><%= book.read ? 'Finished' : 'Unread' %> </p>
+        <%= link_to 'Show', book_path(book), class: 'button' %>
+        <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
+        <%= form_with(model: book, method: :delete) do |form| %>
+            <%= form.submit 'Destroy', class: 'button', data: { confirm: 'Are you sure you want to delete this book?' } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</section>
