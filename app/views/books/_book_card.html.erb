@@ -1,5 +1,3 @@
-
-
 <div class="book-card">
     <!-- Allows book title to link to book page -->
     <%= link_to book_path(book), class: "book-card-link" do %>
@@ -38,17 +36,6 @@
                 <%= form.submit book.read? ? "Mark as Unread" : "Mark as Read", class: "read-button #{book.read? ? 'read' : 'unread'}" %>
             </div>
         <% end %>
-    <% end %>
-    <!-- Link to show the book details -->
-    <%= link_to 'Show', book_path(book), class: 'button' %>
-
-    <!-- Link to edit the book details -->
-    <%= link_to 'Edit', edit_book_path(book), class: 'button' %>
-
-    <!-- Form for deleting the book -->
-    <%= form_with(model: book, method: :delete) do |form| %>
-        <!-- Submit button to delete the book with a confirmation prompt -->
-        <%= form.submit 'Destroy', class: 'button', data: { confirm: 'Are you sure you want to delete this book?' } %>
     <% end %>
 </div>
 

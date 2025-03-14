@@ -33,6 +33,16 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_book_path(@book) %> |
 
-<%= link_to 'Back', books_path %>
+
+
+<%= link_to 'Edit', edit_book_path(@book), class: "button" %> |
+
+<%= link_to 'Back', books_path, class: "button" %>
+<br>
+<br>
+<!-- Form for deleting the book -->
+<%= form_with(model: @book, method: :delete) do |form| %>
+    <!-- Submit button to delete the book with a confirmation prompt -->
+    <%= form.submit 'Destroy',  data: { confirm: 'Are you sure you want to delete this book?' } %>
+<% end %>
