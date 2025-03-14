@@ -25,7 +25,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     if @book.save
       # If saved successfully, redirect to the book's show page with a success notice
-      redirect_to @book, notice: "Book was successfully created."
+      redirect_to books_path, notice: "Book was successfully created."
     else
       # If validation fails, render the 'new' page again to show error messages
       render :new
@@ -40,8 +40,8 @@ class BooksController < ApplicationController
   # Update the existing book with the new form data
   def update
     if @book.update(book_params)
-      # If update is successful, redirect to the book's show page with a success notice
-      redirect_to @book, notice: "Book was successfully updated."
+      # If update is successful, redirect to the back to homepage with a success notice
+      redirect_to books_path, notice: "Book was successfully updated."
     else
       # If update fails, render the 'edit' page again to show validation errors
       render :edit
@@ -64,7 +64,6 @@ class BooksController < ApplicationController
   end
 
   private
-
   # Set the book instance variable before certain actions (show, edit, update, destroy)
   def set_book
     @book = Book.find(params[:id])

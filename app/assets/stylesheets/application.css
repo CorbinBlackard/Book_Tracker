@@ -1,44 +1,6 @@
-/* Flash messages */
-.flash {
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    animation: fadeOut 3s ease-in-out 3s forwards;
-}
-
-/* Success message (flash[:notice]) */
-.flash.notice {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-/* Error message (flash[:alert]) */
-.flash.alert {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* Fade out effect */
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-/* Body and general layout */
+/* ==============================
+   General Layout & Typography
+================================= */
 html,
 body {
     height: 100%;
@@ -56,7 +18,9 @@ body {
     padding: 20px;
 }
 
-/* Navbar */
+/* ==============================
+   Navbar Styles
+================================= */
 .navbar {
     background-color: #333;
     padding: 10px 20px;
@@ -66,13 +30,6 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    margin: 0 15px;
 }
 
 .navbar ul {
@@ -85,10 +42,19 @@ body {
     margin-left: 20px;
 }
 
-/* Hero section */
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 15px;
+}
+
+/* ==============================
+   Hero Section
+================================= */
 .hero {
-    background-color: #4CAF50;
-    /* Green color for reading */
+    background-color: #0B3D02;
+    /* Dark forest green */
     color: white;
     padding: 100px 20px;
     text-align: center;
@@ -114,7 +80,7 @@ body {
     margin-bottom: 40px;
 }
 
-/* CTA button */
+/* CTA Button */
 .cta-button {
     background-color: #fff;
     color: #4CAF50;
@@ -132,48 +98,148 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Book section */
-.book-listing {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+/* ==============================
+   Flash Messages
+================================= */
+.flash {
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+    animation: fadeOut 3s ease-in-out 3s forwards;
 }
 
+/* Success Message */
+.flash.notice {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+/* Error Message */
+.flash.alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Fade Out Animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* ==============================
+   Book Listings
+================================= */
+.book-listing {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Book Sections */
 .book-sections {
     display: flex;
-    gap: 20px;
     flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    justify-content: space-around;
 }
 
 .book-section {
     flex: 1;
-    min-width: 300px;
+    min-width: 320px;
+    max-width: 100%;
     background-color: #f4f4f4;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 }
 
+/* Books Container - Horizontal Stacking */
+.books {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f4f4f4;
+}
+
+/* Book Card Link */
+.book-card-link {
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+/* Book Card */
 .book-card {
     background-color: #fff;
     padding: 15px;
-    margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+    flex: 0 0 200px;
+    /* Fixed width for each card */
 }
 
-.book-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 10px;
+/* Hover Effect */
+.book-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.book-card p {
-    font-size: 1rem;
-    margin-bottom: 5px;
+/* ==============================
+   Forms & Buttons
+================================= */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-/* Buttons */
+/* Error Message */
+#error_explanation {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* General Button */
 .button {
     background-color: #007BFF;
     color: white;
@@ -188,50 +254,9 @@ body {
     background-color: #0056b3;
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    width: 100%;
-    position: relative;
-    bottom: 0;
-}
-
-/* Form fields */
-.form-control {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Error message styling */
-#error_explanation {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-/* Submit button styling */
-.btn-primary {
-    background-color: #007BFF;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-/* Progress bar */
+/* ==============================
+   Progress Bar
+================================= */
 .progress-bar {
     width: 100%;
     height: 20px;
@@ -249,7 +274,22 @@ footer {
     border-radius: 10px;
 }
 
-/* Mobile responsiveness */
+/* ==============================
+   Footer
+================================= */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+/* ==============================
+   Mobile Responsiveness
+================================= */
 @media (max-width: 768px) {
     .navbar ul {
         display: block;
@@ -262,5 +302,13 @@ footer {
 
     .book-card {
         padding: 15px;
+        flex: 0 0 150px;
+        /* Adjust width for small screens */
+    }
+
+    .books {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
     }
 }

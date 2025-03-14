@@ -9,31 +9,30 @@
   </div>
 </section>
 
+<!-- Currently Reading Section -->
 <section class="book-listing">
   <div class="book-sections">
-    
     <!-- Currently Reading Section -->
     <div class="book-section">
       <h2>Currently Reading</h2>
       <div class="books">
-        <!-- Loop through the books that are currently being read -->
-        <% @current_read.each do |book| %>
-          <!-- Render the 'book_card' partial for each book in the current read list -->
-          <%= render 'book_card', book: book %>
+        <% if @current_read.empty? %>
+          <p>No current books</p>
+        <% else %>
+          <!-- Render the 'book_card' partial for each book in the current read list using collection -->
+          <%= render partial: 'book_card', collection: @current_read, as: :book %>
         <% end %>
       </div>
     </div>
+  </div>
 
     <!-- Completed Reads Section -->
     <div class="book-section">
       <h2>Completed Reads</h2>
-      <h3>Total Read: <%= @finished_books.count %></h3>
+      <h3>Total Books Read: <%= @finished_books.count %></h3>
       <div class="books">
-        <!-- Loop through the books that are completed -->
-        <% @finished_books.each do |book| %>
-          <!-- Render the 'book_card' partial for each completed book -->
-          <%= render 'book_card', book: book %>
-        <% end %>
+        <!-- Render the 'book_card' partial for each book in the finished books list using collection -->
+        <%= render partial: 'book_card', collection: @finished_books, as: :book %>
       </div>
     </div>
   </div>
