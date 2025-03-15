@@ -1,10 +1,10 @@
 class BooksController < ApplicationController
   # Before running certain actions, find the book based on the ID in the URL
   before_action :set_book, only: %i[show edit update destroy]
-
+  before_action :authenticate_user!
   # Display a list of all books, along with the finished and currently reading books
   def index
-    @books = Book.all
+    @books = current_user.books  # All books associated with the current user
     @finished_books = Book.where(read: true)  # Books marked as 'read'
     @current_read = Book.where(read: false)   # Books that are still being read
     @finished_books_count = Book.finished_books_count  # Total count of finished books
@@ -20,17 +20,14 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
-  # Create a new book from the form input, then save it to the database
-  def create
-    @book = Book.new(book_params)
-    if @book.save
-      # If saved successfully, redirect to the book's show page with a success notice
-      redirect_to books_path, notice: "Book was successfully created."
-    else
-      # If validation fails, render the 'new' page again to show error messages
-      render :new
-    end
+def create
+  @book = current_user.books.build(book_params)
+  if @book.save
+    redirect_to books_path, notice: "Book added!"
+  else
+    render :new
   end
+end
 
   # Render the edit form for the book
   def edit
@@ -64,13 +61,19 @@ class BooksController < ApplicationController
   end
 
   private
-  # Set the book instance variable before certain actions (show, edit, update, destroy)
-  def set_book
-    @book = Book.find(params[:id])
-  end
+    # Set the book instance variable before certain actions (show, edit, update, destroy)
+    def set_book
+      @book = Book.find(params[:id])
+    end
 
-  # Strong parameters to whitelist the fields allowed for creating or updating a book
-  def book_params
-    params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
-  end
+    # Strong parameters to whitelist the fields allowed for creating or updating a book
+    def book_params
+      params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
+    end
+
+    def authorize_user!
+      unless @book.user == current_user
+        redirect_to books_path, alert: "You are not authorized to do that."
+      end
+    end
 end

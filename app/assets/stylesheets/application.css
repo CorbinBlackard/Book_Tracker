@@ -314,3 +314,35 @@ footer {
         padding-bottom: 10px;
     }
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-auth {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.nav-link.button {
+    background-color: #007BFF;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.nav-link.button:hover {
+    background-color: #0056b3;
+}

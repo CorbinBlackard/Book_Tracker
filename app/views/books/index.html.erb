@@ -3,37 +3,53 @@
     <!-- Title and description of the website -->
     <h1>Welcome to Book Tracker</h1>
     <p>Track all the books you've read and keep your collection organized!</p>
-    
+
     <!-- Link to the page where users can add a new book -->
     <a href="/books/new" class="cta-button">Add a New Book</a>
+  </div>
+</section>
+
+<!-- User Books Section -->
+<section class="book-listing">
+  <div class="book-sections">
+    <h2>Your Books</h2>
+    
+    <% if @books.any? %>
+      <% @books.each do |book| %>
+        <%= render 'book_card', book: book %>
+      <% end %>
+    <% else %>
+      <p>You haven't added any books yet.</p>
+      <%= link_to "Add a New Book", new_book_path, class: "button" %>
+    <% end %>
   </div>
 </section>
 
 <!-- Currently Reading Section -->
 <section class="book-listing">
   <div class="book-sections">
-    <!-- Currently Reading Section -->
     <div class="book-section">
       <h2>Currently Reading</h2>
       <div class="books">
         <% if @current_read.empty? %>
           <p>No current books</p>
         <% else %>
-          <!-- Render the 'book_card' partial for each book in the current read list using collection -->
           <%= render partial: 'book_card', collection: @current_read, as: :book %>
         <% end %>
       </div>
     </div>
   </div>
 
-    <!-- Completed Reads Section -->
-    <div class="book-section">
-      <h2>Completed Reads</h2>
-      <h3>Total Books Read: <%= @finished_books.count %></h3>
-      <div class="books">
-        <!-- Render the 'book_card' partial for each book in the finished books list using collection -->
+  <!-- Completed Reads Section -->
+  <div class="book-section">
+    <h2>Completed Reads</h2>
+    <h3>Total Books Read: <%= @finished_books.count %></h3>
+    <div class="books">
+      <% if @finished_books.any? %>
         <%= render partial: 'book_card', collection: @finished_books, as: :book %>
-      </div>
+      <% else %>
+        <p>You haven't finished any books yet.</p>
+      <% end %>
     </div>
   </div>
 </section>
