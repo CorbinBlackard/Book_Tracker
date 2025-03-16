@@ -1,13 +1,22 @@
 class BooksController < ApplicationController
   # Before running certain actions, find the book based on the ID in the URL
   before_action :set_book, only: %i[show edit update destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [ :index, :show ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ] # Ensure only the user who created the book can modify it
+
+  # Redirect user to the home page after sign out
+  def after_sign_out_path_for(resource_or_scope)
+    root_path # Or whichever path you want to redirect to after logout
+  end
+
   # Display a list of all books, along with the finished and currently reading books
   def index
-    @books = current_user.books  # All books associated with the current user
-    @finished_books = Book.where(read: true)  # Books marked as 'read'
-    @current_read = Book.where(read: false)   # Books that are still being read
-    @finished_books_count = Book.finished_books_count  # Total count of finished books
+    if user_signed_in?
+      @books = current_user.books # All books associated with the current user
+      @finished_books = current_user.books.where(read: true)  # Books marked as 'read'
+      @current_read = current_user.books.where(read: false)   # Books that are still being read
+      @finished_books_count = current_user.books.where(read: true).count  # Total count of finished books
+    end
   end
 
   # Show the details of a single book
@@ -20,14 +29,15 @@ class BooksController < ApplicationController
     @book = Book.new
   end
 
-def create
-  @book = current_user.books.build(book_params)
-  if @book.save
-    redirect_to books_path, notice: "Book added!"
-  else
-    render :new
+  # Create a new book record
+  def create
+    @book = current_user.books.build(book_params)
+    if @book.save
+      redirect_to books_path, notice: "Book added!"
+    else
+      render :new
+    end
   end
-end
 
   # Render the edit form for the book
   def edit
@@ -37,10 +47,8 @@ end
   # Update the existing book with the new form data
   def update
     if @book.update(book_params)
-      # If update is successful, redirect to the back to homepage with a success notice
       redirect_to books_path, notice: "Book was successfully updated."
     else
-      # If update fails, render the 'edit' page again to show validation errors
       render :edit
     end
   end
@@ -53,27 +61,24 @@ end
 
   # Calculate the progress percentage for the current book based on pages read and total pages
   def progress_percentage
-    # Ensure both total_pages and page_number are present to avoid division by zero
     return 0 unless @book.total_pages && @book.page_number
-
-    # Calculate the percentage progress
     (@book.page_number.to_f / @book.total_pages.to_f) * 100
   end
 
   private
-    # Set the book instance variable before certain actions (show, edit, update, destroy)
-    def set_book
-      @book = Book.find(params[:id])
-    end
 
-    # Strong parameters to whitelist the fields allowed for creating or updating a book
-    def book_params
-      params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
-    end
+  # Set the book instance variable before certain actions (show, edit, update, destroy)
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    def authorize_user!
-      unless @book.user == current_user
-        redirect_to books_path, alert: "You are not authorized to do that."
-      end
-    end
+  # Strong parameters to whitelist the fields allowed for creating or updating a book
+  def book_params
+    params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
+  end
+
+  # Ensure only the user who created the book can modify it
+  def authorize_user!
+    redirect_to books_path, alert: "You are not authorized to do that." unless @book.user == current_user
+  end
 end

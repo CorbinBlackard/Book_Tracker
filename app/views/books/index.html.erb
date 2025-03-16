@@ -10,35 +10,37 @@
 </section>
 
 <!-- User Books Section -->
-<section class="book-listing">
-  <div class="book-sections">
-    <h2>Your Books</h2>
-    
-    <% if @books.any? %>
-      <% @books.each do |book| %>
-        <%= render 'book_card', book: book %>
-      <% end %>
-    <% else %>
-      <p>You haven't added any books yet.</p>
-      <%= link_to "Add a New Book", new_book_path, class: "button" %>
-    <% end %>
-  </div>
-</section>
+<% if user_signed_in? %>
+  <section class="book-listing">
+    <div class="book-sections">
+      <h2>Your Books</h2>
 
-<!-- Currently Reading Section -->
-<section class="book-listing">
-  <div class="book-sections">
-    <div class="book-section">
-      <h2>Currently Reading</h2>
-      <div class="books">
-        <% if @current_read.empty? %>
-          <p>No current books</p>
-        <% else %>
-          <%= render partial: 'book_card', collection: @current_read, as: :book %>
+      <% if @books.present? %>
+        <% @books.each do |book| %>
+          <%= render 'book_card', book: book %>
         <% end %>
+      <% else %>
+        <p>You haven't added any books yet.</p>
+      <% end %>
+
+      <%= link_to "Add a New Book", new_book_path, class: "read-button" %>
+    </div>
+  </section>
+
+  <!-- Currently Reading Section -->
+  <section class="book-listing">
+    <div class="book-sections">
+      <div class="book-section">
+        <h2>Currently Reading</h2>
+        <div class="books">
+          <% if @current_read.empty? %>
+            <p>No current books</p>
+          <% else %>
+            <%= render partial: 'book_card', collection: @current_read, as: :book %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
 
   <!-- Completed Reads Section -->
   <div class="book-section">
@@ -53,3 +55,7 @@
     </div>
   </div>
 </section>
+
+<% else %>
+  <p>Sign in to track your reading progress!</p>
+<% end %>
