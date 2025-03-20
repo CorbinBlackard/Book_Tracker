@@ -30,7 +30,6 @@
         <div class="nav-links">
           <% if user_signed_in? %>
             <%= link_to "My Books", user_path(current_user), class: "nav-link" %>
-            <%= link_to "Books", books_path, class: "nav-link" %>
           <% end %>
         </div>
 
