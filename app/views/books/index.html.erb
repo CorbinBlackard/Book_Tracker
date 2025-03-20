@@ -1,27 +1,32 @@
+<!-- Hero Section -->
 <section class="hero">
   <div class="hero-content">
-    <!-- Title and description of the website -->
+    <!-- Personalized greeting for the logged-in user -->
     <h1>Welcome to Book Tracker, <%= current_user.name %> </h1>
     <p>Track all the books you've read and keep your collection organized!</p>
 
-    <!-- Link to the page where users can add a new book -->
-    <a href="/books/new" class="add-book-btn"> Add a New Book</a>
+    <!-- Button to navigate to the "Add New Book" page -->
+    <a href="/books/new" class="add-book-btn">Add a New Book</a>
   </div>
 </section>
 
-<!-- User Books Section -->
+<!-- User Books Section (Only visible if the user is signed in) -->
 <% if user_signed_in? %>
   <h1>📚 My Books</h1>
 
   <% if @books.present? %>
+    <!-- Loop through and render each book using a partial -->
     <% @books.each do |book| %>
       <%= render 'book_card', book: book %>
     <% end %>
   <% else %>
+    <!-- Message displayed if the user has no books in their collection -->
     <p>You haven't added any books yet.</p>
   <% end %>
 
+  <!-- Button to add a new book -->
   <%= link_to "Add a New Book", new_book_path, class: "add-book-btn" %>
 <% else %>
+  <!-- Message prompting users to sign in -->
   <p>Sign in to track your reading progress!</p>
 <% end %>

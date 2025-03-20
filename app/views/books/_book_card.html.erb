@@ -1,56 +1,55 @@
 <div class="book-list">
-    <div class="book-item">
-        <!-- Book Title Button (Click to Toggle Details) -->
-        <button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
-            <%= book.title %> ▼
-        </button>
+  <div class="book-item">
+    <!-- Book Title Button (Click to Toggle Details) -->
+    <button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
+      <%= book.title %> ▼
+    </button>
 
-        <!-- Hidden Book Details -->
-        <div id="book-details-<%= book.id %>" class="book-details">
-            <p><strong>Author:</strong> <%= book.author %></p>
-            <p><strong>Genre:</strong> <%= book.genre %></p>
-            <p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
+    <!-- Hidden Book Details (Initially Collapsed) -->
+    <div id="book-details-<%= book.id %>" class="book-details">
+      <p><strong>Author:</strong> <%= book.author %></p>
+      <p><strong>Genre:</strong> <%= book.genre %></p>
+      <p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
 
-            <% unless book.read %>
-                <p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
-                <div class="progress-bar">
-                    <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
-                </div>
-                <span class="progress-text"><%= book.progress_percentage %>%</span>
-
-                <!-- Mark as Read Button -->
-                <%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
-                    <div class="read-toggle">
-                        <%= form.hidden_field :read, value: !book.read %>
-                        <%= form.submit "Mark as Read", class: "read-button unread" %>
-                    </div>
-                <% end %>
-            <% end %>
-
-            <% if book.read %>
-                <p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>
-            <% end %>
-            <!-- Edit Button -->
-            <%= link_to 'Edit', edit_book_path(book), class: "button" %>
-            <!-- Delete Button -->
-            <%= form_with(model: book, method: :delete) do |form| %>
-                <%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
-            <% end %>
-
+      <% unless book.read %>
+        <!-- Display Progress if the Book is Unfinished -->
+        <p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
+        <div class="progress-bar">
+          <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
         </div>
+        <span class="progress-text"><%= book.progress_percentage %>%</span>
+
+        <!-- Mark as Read Button (Updates Book Status) -->
+        <%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
+          <div class="read-toggle">
+            <%= form.hidden_field :read, value: !book.read %>
+            <%= form.submit "Mark as Read", class: "read-button unread" %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <% if book.read %>
+        <!-- Show Rating for Finished Books -->
+        <p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>
+      <% end %>
+
+      <!-- Edit Book Button -->
+      <%= link_to 'Edit', edit_book_path(book), class: "button" %>
+
+      <!-- Delete Book Button with Confirmation Prompt -->
+      <%= form_with(model: book, method: :delete) do |form| %>
+        <%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
+      <% end %>
     </div>
+  </div>
 </div>
 
-<!-- JavaScript for Toggle Effect -->
+<!-- JavaScript for Toggling Book Details -->
 <script>
-    function toggleDetails(bookId) {
-        var details = document.getElementById("book-details-" + bookId);
-        
-        // Toggle display
-        if (details.style.display === "none" || details.style.display === "") {
-            details.style.display = "block";
-        } else {
-            details.style.display = "none";
-        }
-    }
+  function toggleDetails(bookId) {
+    var details = document.getElementById("book-details-" + bookId);
+    
+    // Toggle the display of the book details section
+    details.style.display = (details.style.display === "none" || details.style.display === "") ? "block" : "none";
+  }
 </script>
