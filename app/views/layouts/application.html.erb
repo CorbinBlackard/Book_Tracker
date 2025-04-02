@@ -1,74 +1,74 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= content_for(:title) || "Book Tracker" %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
+	<title><%= content_for(:title) || "Book Tracker" %></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 
-  <!-- Security tokens for Rails forms -->
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+	<!-- Security tokens for Rails forms -->
+	<%= csrf_meta_tags %>
+	<%= csp_meta_tag %>
 
-  <%= yield :head %>
+	<%= yield :head %>
 
-  <!-- PWA manifest for installable apps (optional) -->
-  <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+	<!-- PWA manifest for installable apps (optional) -->
+	<%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-  <!-- Favicon and Icons -->
-  <link rel="icon" href="/icon.png" type="image/png">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icon.png">
+	<!-- Favicon and Icons -->
+	<link rel="icon" href="/icon.png" type="image/png">
+	<link rel="icon" href="/icon.svg" type="image/svg+xml">
+	<link rel="apple-touch-icon" href="/icon.png">
 
-  <!-- Stylesheets -->
-  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-  <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+	<!-- Stylesheets -->
+	<%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+	<%= javascript_include_tag "application", "data-turbo-track": "reload" %>
 </head>
 
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="navbar-content">
-      <!-- App Branding -->
-      <a href="/" class="brand">Book Tracker</a>
+	<!-- Navigation Bar -->
+	<nav class="navbar">
+		<div class="navbar-content">
+			<!-- App Branding -->
+			<a href="/" class="brand">Book Tracker</a>
 
-      <!-- User Navigation Links -->
-      <div class="nav-links">
-        <% if user_signed_in? %>
-          <%= link_to "My Books", user_path(current_user), class: "nav-link" %>
-        <% end %>
-      </div>
+			<!-- User Navigation Links -->
+			<div class="nav-links">
+				<% if user_signed_in? %>
+					<%= link_to "My Books", user_path(current_user), class: "nav-link" %>
+				<% end %>
+			</div>
 
-      <!-- Authentication Links -->
-      <div class="nav-auth">
-        <% if user_signed_in? %>
-          <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, method: :delete, class: "nav-link button" %>
-        <% else %>
-          <%= link_to "Login", new_user_session_path, class: "nav-link button" %>
-          <%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
-        <% end %>
-      </div>
-    </div>
-  </nav>
+			<!-- Authentication Links -->
+			<div class="nav-auth">
+				<% if user_signed_in? %>
+					<%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, method: :delete, class: "nav-link button" %>
+				<% else %>
+					<%= link_to "Login", new_user_session_path, class: "nav-link button" %>
+					<%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
+				<% end %>
+			</div>
+		</div>
+	</nav>
 
-  <!-- Flash Messages (Notifications) -->
-  <% flash.each do |key, message| %>
-    <div class="flash <%= key %>">
-      <%= message %>
-    </div>
-  <% end %>
+	<!-- Flash Messages (Notifications) -->
+	<% flash.each do |key, message| %>
+		<div class="flash <%= key %>">
+			<%= message %>
+		</div>
+	<% end %>
 
-  <!-- Main Content Container -->
-  <div class="container">
-    <%= yield %>
-  </div>
+	<!-- Main Content Container -->
+	<div class="container">
+		<%= yield %>
+	</div>
 
-  <!-- Footer -->
-  <footer>
-    <p>Book Tracker &copy; 2025 | <a href="/about">About Us</a></p>
-  </footer>
+	<!-- Footer -->
+	<footer>
+		<p>Book Tracker &copy; 2025 | <a href="/about">About Us</a></p>
+	</footer>
 
-  <!-- Required for Turbo (Rails UJS) -->
-  <%= javascript_include_tag "rails-ujs" %>
+	<!-- Required for Turbo (Rails UJS) -->
+	<%= javascript_include_tag "rails-ujs" %>
 </body>
 </html>

@@ -1,43 +1,43 @@
 <!-- Hero Section -->
 <section class="hero">
-  <div class="hero-content">
-    <% if user_signed_in? %>
-      <h1>Welcome to Book Tracker, <%= current_user.name %></h1>
-      <p>Track all the books you've read and keep your collection organized!</p>
-    <% else %>
-      <h1>Welcome to Book Tracker</h1>
-      <p>Sign in to track all the books you've read and keep your collection organized!</p>
-    <% end %>
-    <%= link_to "Add New Book ⊕", new_book_path, class: "add-book-btn" %>
-    <% if user_signed_in? %>      
-      <%= link_to "View My Books 🔍", user_path(current_user), class: "add-book-btn" %>
-    <% end %>
-  </div>
+	<div class="hero-content">
+		<% if user_signed_in? %>
+			<h1>Welcome to Book Tracker, <%= current_user.name %></h1>
+			<p>Track all the books you've read and keep your collection organized!</p>
+		<% else %>
+			<h1>Welcome to Book Tracker</h1>
+			<p>Sign in to track all the books you've read and keep your collection organized!</p>
+		<% end %>
+		<%= link_to "Add New Book ⊕", new_book_path, class: "add-book-btn" %>
+		<% if user_signed_in? %>      
+			<%= link_to "View My Books 🔍", user_path(current_user), class: "add-book-btn" %>
+		<% end %>
+	</div>
 </section>
 
 <!-- User Books Section (Visible only if signed in) -->
 <% if user_signed_in? %>
-  <h1>📖 Currently Reading</h1>
-  <h3>Total: <%= @books.currently_reading.count%></h3>
-  <% if @books.currently_reading.any? %>
-    <% @books.currently_reading.each do |book| %>
-      <%= render 'book_card', book: book %>
-    <% end %>
-  <% else %>
-    <p>You are not currently reading any books... Do better</p>
-  <% end %>
+	<h1>📖 Currently Reading</h1>
+	<h3>Total: <%= @books.currently_reading.count%></h3>
+	<% if @books.currently_reading.any? %>
+		<% @books.currently_reading.each do |book| %>
+			<%= render 'book_card', book: book %>
+		<% end %>
+	<% else %>
+		<p>You are not currently reading any books... Do better</p>
+	<% end %>
 
 
-  <h1>📚 Finished Books</h1>
-  <h3> Total: <%= @finished_books.count %></h3>
-  <% if @finished_books.any? %>
-    <% @finished_books.each do |book| %>
-      <%= render 'book_card', book: book %>
-    <% end %>
-  <% else %>
-    <p>You have not finished any books yet...</p>
-  <% end %>
+	<h1>📚 Finished Books</h1>
+	<h3> Total: <%= @finished_books.count %></h3>
+	<% if @finished_books.any? %>
+		<% @finished_books.each do |book| %>
+			<%= render 'book_card', book: book %>
+		<% end %>
+	<% else %>
+		<p>You have not finished any books yet...</p>
+	<% end %>
 
 <% else %>
-  <p>Sign in to track your reading progress!</p>
+	<p>Sign in to track your reading progress!</p>
 <% end %>
