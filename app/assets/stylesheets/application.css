@@ -37,7 +37,7 @@ body {
 
 .navbar {
     background-color: #212339;
-    padding: 1rem;
+    padding: .5rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     /* Fix the navbar at the top */
