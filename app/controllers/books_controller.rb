@@ -74,7 +74,7 @@ class BooksController < ApplicationController
 
   # Strong parameters to whitelist the fields allowed for creating or updating a book
   def book_params
-    params.require(:book).permit(:title, :author, :genre, :page_number, :read, :rating, :total_pages)
+    params.require(:book).permit(:title, :author, :currently_reading, :genre, :page_number, :read, :rating, :total_pages)
   end
 
   # Ensure only the user who created the book can modify it

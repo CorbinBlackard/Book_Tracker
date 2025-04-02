@@ -28,6 +28,13 @@
         <% end %>
       <% end %>
 
+      <%= form_with(model: book, url: book_path(book), method: :patch, remote: true) do |form| %>
+  <label>
+    <%= form.check_box :currently_reading, checked: book.currently_reading, onchange: "this.form.submit();" %>
+    Currently Reading
+  </label>
+<% end %>
+
       <% if book.read %>
         <!-- Show Rating for Finished Books -->
         <p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>

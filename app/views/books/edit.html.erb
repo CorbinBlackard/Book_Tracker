@@ -34,6 +34,11 @@
   </div>
 
   <div class="field">
+    <%= form.label :currently_reading %>
+    <%= form.check_box :currently_reading %>
+  </div>
+
+  <div class="field">
     <%= form.label :rating %>
     <%= form.select :rating, options_for_select([1, 2, 3, 4, 5], @book.rating), { include_blank: "Select Rating" } %>
   </div>

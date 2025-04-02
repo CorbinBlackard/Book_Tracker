@@ -2,9 +2,13 @@
 <section class="hero">
   <div class="hero-content">
     <!-- Personalized greeting for the logged-in user -->
-    <h1>Welcome to Book Tracker, <%= current_user.name %> </h1>
-    <p>Track all the books you've read and keep your collection organized!</p>
-
+    <% if user_signed_in? %>
+      <h1>Welcome to Book Tracker, <%= current_user.name %> </h1>
+      <p>Track all the books you've read and keep your collection organized!</p>
+    <% else %>
+      <h1>Welcome to Book Tracker</h1>
+      <p>Sign in to track all the books you've read and keep your collection organized!</p>
+    <% end %>
     <!-- Button to navigate to the "Add New Book" page -->
     <a href="/books/new" class="add-book-btn">Add a New Book</a>
   </div>
@@ -12,16 +16,15 @@
 
 <!-- User Books Section (Only visible if the user is signed in) -->
 <% if user_signed_in? %>
-  <h1>📚 My Books</h1>
-
-  <% if @books.present? %>
+  <h1>📚 Currently Reading </h1>
+  <% if @books.currently_reading.any? %>
     <!-- Loop through and render each book using a partial -->
-    <% @books.each do |book| %>
+    <% @books.currently_reading.each do |book| %>
       <%= render 'book_card', book: book %>
     <% end %>
   <% else %>
     <!-- Message displayed if the user has no books in their collection -->
-    <p>You haven't added any books yet.</p>
+    <p>You are not currently reading any books</p>
   <% end %>
 
   <!-- Button to add a new book -->
