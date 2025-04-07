@@ -20,11 +20,11 @@
 
 <!-- Book Action Buttons -->
 <div class="book-actions">
-  <%= link_to 'Edit', edit_book_path(@book), class: "button" %>
-  <%= link_to 'Back', books_path, class: "button" %>
+	<%= link_to 'Edit', edit_book_path(@book), class: "button" %>
+	<%= link_to 'Back', books_path, class: "button" %>
 </div>
 
 <!-- Form for deleting the book with confirmation prompt -->
 <%= form_with(model: @book, method: :delete) do |form| %>
-  <%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
+	<%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
 <% end %>
