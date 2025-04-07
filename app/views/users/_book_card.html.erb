@@ -1,47 +1,47 @@
 <div class="book-card">
-<!-- Book Title (Clickable Link to Show Page) -->
-<%= link_to book_path(book), class: "book-card-link" do %>
-    <h3><%= book.title %></h3>
-<% end %>
+   <!-- Book Title (Clickable Link to Show Page) -->
+   <%= link_to book_path(book), class: "book-card-link" do %>
+      <h3><%= book.title %></h3>
+   <% end %>
 
-<!-- Display the Book's Author -->
-<p><strong>Author:</strong> <%= book.author %></p>
+   <!-- Display the Book's Author -->
+   <p><strong>Author:</strong> <%= book.author %></p>
 
-<!-- Display the Book's Genre -->
-<p><strong>Genre:</strong> <%= book.genre %></p>
+   <!-- Display the Book's Genre -->
+   <p><strong>Genre:</strong> <%= book.genre %></p>
 
-<% unless book.read %>
-    <!-- Progress Bar (Only Shows if the Book is Unfinished) -->
-    <div class="progress-bar">
-    <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
-    </div>
+   <% unless book.read %>
+      <!-- Progress Bar (Only Shows if the Book is Unfinished) -->
+      <div class="progress-bar">
+         <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
+      </div>
 
-    <!-- Display Progress Percentage -->
-    <span class="progress-text"><%= book.progress_percentage %>%</span>
+      <!-- Display Progress Percentage -->
+      <span class="progress-text"><%= book.progress_percentage %>%</span>
 
-    <!-- Display Current Page / Total Pages -->
-    <p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
-<% end %>
+      <!-- Display Current Page / Total Pages -->
+      <p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
+   <% end %>
 
-<!-- Show if the Book is Finished or Unfinished -->
-<p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
+   <!-- Show if the Book is Finished or Unfinished -->
+   <p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
 
-<!-- Adds rating to completed book cards -->
-<% if book.read %>
-    <% if book.rating.present? %>
-    <%= book.rating %> star<%= 's' if book.rating > 1 %>
-    <% else %>
-    No rating yet
-    <% end %>
-<% end %>
+   <!-- Adds rating to completed book cards -->
+   <% if book.read %>
+      <% if book.rating.present? %>
+         <%= book.rating %> star<%= 's' if book.rating > 1 %>
+      <% else %>
+         No rating yet
+      <% end %>
+   <% end %>
 
-<% unless book.read %>
-    <!-- Mark as Read Button (Updates Status via AJAX) -->
-    <%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
-    <div class="read-toggle">
-        <%= form.hidden_field :read, value: !book.read %>
-        <%= form.submit book.read? ? "Mark as Unread" : "Mark as Read", class: "read-button #{book.read? ? 'read' : 'unread'}" %>
-    </div>
-    <% end %>
-<% end %>
+   <% unless book.read %>
+      <!-- Mark as Read Button (Updates Status via AJAX) -->
+      <%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
+         <div class="read-toggle">
+            <%= form.hidden_field :read, value: !book.read %>
+            <%= form.submit book.read? ? "Mark as Unread" : "Mark as Read", class: "read-button #{book.read? ? 'read' : 'unread'}" %>
+         </div>
+      <% end %>
+   <% end %>
 </div>

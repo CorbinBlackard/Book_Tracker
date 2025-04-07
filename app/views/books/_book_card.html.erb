@@ -1,87 +1,88 @@
 <div class="book-list">
-	<div class="book-item">
-		<!-- Book Title Button (Click to Toggle Details) -->
-		<button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
-			<%= book.title %> ▼
-		</button>
+   <div class="book-item">
+      <!-- Book Title Button (Click to Toggle Details) -->
+      <button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
+         <%= book.title %> ▼
+      </button>
 
-		<!-- Hidden Book Details (Initially Collapsed) -->
-		<div id="book-details-<%= book.id %>" class="book-details">
-			<p><strong>Author:</strong> <%= book.author %></p>
-			<p><strong>Genre:</strong> <%= book.genre %></p>
-			<p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
+      <!-- Hidden Book Details (Initially Collapsed) -->
+      <div id="book-details-<%= book.id %>" class="book-details">
+         <p><strong>Author:</strong> <%= book.author %></p>
+         <p><strong>Genre:</strong> <%= book.genre %></p>
+         <p><strong>Status:</strong> <%= book.read ? 'Finished' : 'Unfinished' %></p>
 
-			<% unless book.read %>
-			<!-- Display Progress if the Book is Unfinished -->
-			<p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
-			<div class="progress-bar">
-				<div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
-			</div>
-			<span class="progress-text"><%= book.progress_percentage %>%</span>
+         <% unless book.read %>
+            <!-- Display Progress if the Book is Unfinished -->
+            <p><strong>Progress:</strong> <%= book.page_number %> / <%= book.total_pages %> Pages</p>
+            <div class="progress-bar">
+               <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
+            </div>
+            <span class="progress-text"><%= book.progress_percentage %>%</span>
 
-			<!-- Mark as Read Button (Updates Book Status) -->
-			<%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
-				<div class="read-toggle">
-					<%= form.hidden_field :read, value: !book.read %>
-					<%= form.submit "Mark as Read", class: "read-button unread" %>
-				</div>
-			<% end %>
-			<% end %>
+            <!-- Mark as Read Button (Updates Book Status) -->
+            <%= form_with model: book, url: book_path(book), method: :patch, remote: true do |form| %>
+               <div class="read-toggle">
+                  <%= form.hidden_field :read, value: !book.read %>
+                  <%= form.submit "Mark as Read", class: "read-button unread" %>
+               </div>
+            <% end %>
+         <% end %>
 
-			<%= form_with(model: book, url: book_path(book), method: :patch, remote: true) do |form| %>
-	<label>
-		<%= form.check_box :currently_reading, checked: book.currently_reading, onchange: "this.form.submit();" %>
-		Currently Reading
-	</label>
-	<% end %>
+         <%= form_with(model: book, url: book_path(book), method: :patch, remote: true) do |form| %>
+            <label>
+               <%= form.check_box :currently_reading, checked: book.currently_reading, onchange: "this.form.submit();" %>
+               Currently Reading
+            </label>
+         <% end %>
 
-			<% if book.read %>
-			<!-- Show Rating for Finished Books -->
-			<p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>
-			<% end %>
+         <% if book.read %>
+            <!-- Show Rating for Finished Books -->
+            <p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>
+         <% end %>
 
-			<!-- Edit Book Button -->
-			<%= link_to 'Edit', edit_book_path(book), class: "button" %>
+         <!-- Edit Book Button -->
+         <%= link_to 'Edit', edit_book_path(book), class: "button" %>
+         <%= link_to 'Show', book_path(book), class: "button" %>
 
-			<!-- Delete Book Button with Confirmation Prompt -->
-			<%= form_with(model: book, method: :delete) do |form| %>
-			<%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
-			<% end %>
-		</div>
-	</div>
+         <!-- Delete Book Button with Confirmation Prompt -->
+         <%= form_with(model: book, method: :delete) do |form| %>
+            <%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
+         <% end %>
+      </div>
+   </div>
 </div>
 
 <!-- JavaScript for Toggling Book Details -->
 <script>
-	function toggleDetails(bookId) {
-		const details = document.getElementById("book-details-" + bookId);
+   function toggleDetails(bookId) {
+      const details = document.getElementById("book-details-" + bookId);
 
-		if (details.classList.contains("active")) {
-			// Set max-height to scrollHeight so the transition starts from current height
-			details.style.maxHeight = details.scrollHeight + "px";
+      if (details.classList.contains("active")) {
+         // Set max-height to scrollHeight so the transition starts from current height
+         details.style.maxHeight = details.scrollHeight + "px";
 
-			// Trigger a reflow to ensure the transition is applied
-			void details.offsetHeight;
+         // Trigger a reflow to ensure the transition is applied
+         void details.offsetHeight;
 
-			// Collapse
-			details.style.maxHeight = "0px";
-			details.classList.remove("active");
+         // Collapse
+         details.style.maxHeight = "0px";
+         details.classList.remove("active");
 
-			details.addEventListener("transitionend", () => {
-			details.style.visibility = "hidden";
-			details.style.padding = "0 10px";
-			}, { once: true });
-		} else {
-			details.classList.add("active");
+         details.addEventListener("transitionend", () => {
+            details.style.visibility = "hidden";
+            details.style.padding = "0 10px";
+         }, { once: true });
+      } else {
+         details.classList.add("active");
 
-			// Ensure visibility and padding are restored before expanding
-			details.style.visibility = "visible";
-			details.style.padding = "10px";
+         // Ensure visibility and padding are restored before expanding
+         details.style.visibility = "visible";
+         details.style.padding = "10px";
 
-			// Set max-height after a frame to allow transition
-			requestAnimationFrame(() => {
-			details.style.maxHeight = details.scrollHeight + "px";
-			});
-		}
-	}
+         // Set max-height after a frame to allow transition
+         requestAnimationFrame(() => {
+            details.style.maxHeight = details.scrollHeight + "px";
+         });
+      }
+   }
 </script>

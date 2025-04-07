@@ -2,21 +2,20 @@
 <h1><%= @book.title %></h1>
 
 <!-- Book Details Section -->
-<div class="book-details">
-  <p><strong>Title:</strong> <%= @book.title %></p>
-  <p><strong>Author:</strong> <%= @book.author %></p>
-  <p><strong>Genre:</strong> <%= @book.genre %></p>
-  <p><strong>Page Number:</strong> <%= @book.page_number %></p>
-  <p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
+<div class="book-detail-page">
+	<p><strong>Author:</strong> <%= @book.author %></p>
+	<p><strong>Genre:</strong> <%= @book.genre %></p>
+	<p><strong>Page Number:</strong> <%= @book.page_number %></p>
+	<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
 
-  <!-- Display book rating if available -->
-  <p><strong>Rating:</strong> 
-    <% if @book.rating.present? %>
-      <%= @book.rating %> star<%= 's' if @book.rating > 1 %>
-    <% else %>
-      No rating yet
-    <% end %>
-  </p>
+	<!-- Display book rating if available -->
+	<p><strong>Rating:</strong> 
+		<% if @book.rating.present? %>
+			<%= @book.rating %> star<%= 's' if @book.rating > 1 %>
+		<% else %>
+			No rating yet
+		<% end %>
+	</p>
 </div>
 
 <!-- Book Action Buttons -->
