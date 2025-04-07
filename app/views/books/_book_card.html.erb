@@ -54,9 +54,34 @@
 <!-- JavaScript for Toggling Book Details -->
 <script>
 	function toggleDetails(bookId) {
-		var details = document.getElementById("book-details-" + bookId);
-		
-		// Toggle the display of the book details section
-		details.style.display = (details.style.display === "none" || details.style.display === "") ? "block" : "none";
+		const details = document.getElementById("book-details-" + bookId);
+
+		if (details.classList.contains("active")) {
+			// Set max-height to scrollHeight so the transition starts from current height
+			details.style.maxHeight = details.scrollHeight + "px";
+
+			// Trigger a reflow to ensure the transition is applied
+			void details.offsetHeight;
+
+			// Collapse
+			details.style.maxHeight = "0px";
+			details.classList.remove("active");
+
+			details.addEventListener("transitionend", () => {
+			details.style.visibility = "hidden";
+			details.style.padding = "0 10px";
+			}, { once: true });
+		} else {
+			details.classList.add("active");
+
+			// Ensure visibility and padding are restored before expanding
+			details.style.visibility = "visible";
+			details.style.padding = "10px";
+
+			// Set max-height after a frame to allow transition
+			requestAnimationFrame(() => {
+			details.style.maxHeight = details.scrollHeight + "px";
+			});
+		}
 	}
 </script>
