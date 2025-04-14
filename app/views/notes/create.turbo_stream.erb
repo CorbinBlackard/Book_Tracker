@@ -1,0 +1,16 @@
+<turbo-stream action="append" target="notes-list-<%= @note.book.id %>">
+<template>
+	<%= render partial: "notes/note", locals: { note: @note } %>
+</template>
+</turbo-stream>
+<turbo-stream action="update" target="new_note_form_<%= @book.id %>">
+	<template>
+		<%= form_with(model: [@note.book, @note.book.notes.build], data: {turbo: true}) do |form| %>
+			<div>
+				<%= form.label :content, "Add a Note?" %><br>
+				<%= form.text_area :content, rows: 3 %>
+			</div>
+			<%= form.submit "Add Note" %>
+		<% end %>
+	</template>
+</turbo-stream>

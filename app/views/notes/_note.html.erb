@@ -1,0 +1,13 @@
+<li class="note">
+	<p><%= note.content %></p>
+
+	<div class="note-footer">
+		<small>Added by <%= note.user.name %> on <%= note.created_at.strftime("%b %d, %Y") %></small>
+		
+		<div class="note-actions">
+			<%= link_to "🗑️", book_note_path(note.book, note), method: :delete, data: { confirm: "Delete this note?" }, class: "note-delete" %>
+
+			<%= link_to "✏️", edit_book_note_path(note.book, note), class: "note-edit" %>
+		</div>
+	</div>
+</li>
