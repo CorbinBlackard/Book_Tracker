@@ -6,7 +6,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Books routes (standard RESTful routes for books)
-  resources :books
+  resources :books do
+    resources :notes, only: [ :create, :edit, :update, :destroy ] # Nested routes for notes under books
+  end
 
   # User routes: Only the 'show' route is available for users
   resources :users, only: [ :show ]

@@ -40,6 +40,30 @@
             <p><strong>Rating:</strong> <%= book.rating.present? ? "#{book.rating} stars" : "No rating yet" %></p>
          <% end %>
 
+			<!-- Notes Section -->
+			<% if book.notes.any? %>
+				<h3>Book Notes</h3>
+				<ul>
+					<% book.notes.each do |note| %>
+						<li>
+							<%= note.content %>
+							<%= link_to "✏️", edit_book_note_path(book, note), class: "note-edit" %>
+							<%= link_to "🗑️", book_note_path(book, note), method: :delete, data: { confirm: "Delete this note?" }, class: "note-delete" %>
+						</li>
+					<% end %>
+				</ul>
+			<% else %>
+				<p>No notes available for this book.</p>
+			<% end %>
+			<%= form_with(model: [book, book.notes.build]) do |form| %>
+				<div>
+					<%= form.label :content, "Add a Note?" %><br>
+					<%= form.text_area :content, rows: 3 %>
+				</div>
+				<%= form.submit "Add Note" %>
+			<% end %>
+			
+
          <!-- Edit Book Button -->
          <%= link_to 'Edit', edit_book_path(book), class: "button" %>
          <%= link_to 'Show', book_path(book), class: "button" %>

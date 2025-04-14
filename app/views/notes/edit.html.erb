@@ -1,0 +1,9 @@
+<h2>Edit Note</h2>
+
+<%= form_with(model: [@book, @note]) do |form| %>
+  <div>
+    <%= form.label :content %><br>
+    <%= form.text_area :content, rows: 3 %>
+  </div>
+  <%= form.submit "Update Note" %>
+<% end %>

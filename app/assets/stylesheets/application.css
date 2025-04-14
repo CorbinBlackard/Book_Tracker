@@ -255,6 +255,15 @@ body {
 	visibility: visible;
 }
 
+.note {
+	background-color: #2a2a3b;
+	padding: 10px 15px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	color: #e20d0d;
+}
+
 /* ==============================================
 	Footer Styles
 	============================================== */

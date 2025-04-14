@@ -18,6 +18,22 @@
 	</p>
 </div>
 
+<h2>Leave a Notes</h2>
+
+<%= form_with(model: [@book, @book.notes.build]) do |form| %>
+	<div>
+		<%= form.label :content, "Add a Note" %><br>
+		<%= form.text_area :content, rows: 3 %>
+	</div>
+	<%= form.submit "Add Note" %>
+<% end %>
+
+<ul>
+	<% @book.notes.each do |note| %>
+		<li><%= note.content %></li>
+	<% end %>
+</ul>
+
 <!-- Book Action Buttons -->
 <div class="book-actions">
 	<%= link_to 'Edit', edit_book_path(@book), class: "button" %>
