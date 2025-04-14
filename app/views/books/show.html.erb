@@ -18,7 +18,7 @@
 	</p>
 </div>
 
-<h2>Leave a Notes</h2>
+<h2>📝 Book Notes</h2>
 
 <%= form_with(model: [@book, @book.notes.build]) do |form| %>
 	<div>
@@ -30,8 +30,10 @@
 
 <ul>
 	<% @book.notes.each do |note| %>
-		<li><%= note.content %></li>
-	<% end %>
+		<li class="note">
+			<%= note.content %>
+		</li>
+	<%end%>
 </ul>
 
 <!-- Book Action Buttons -->

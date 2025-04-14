@@ -44,8 +44,8 @@
          <% end %>
 
          <!-- Notes Section -->
+			<h3>📝 Book Notes</h3>
          <% if book.notes.any? %>
-            <h3>Book Notes</h3>
             <ul id="notes-list-<%= book.id %>">
                <% book.notes.each do |note| %>
                   <%= render partial: "notes/note", locals: { note: note } %>

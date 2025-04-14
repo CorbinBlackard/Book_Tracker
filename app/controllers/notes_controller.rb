@@ -7,7 +7,7 @@ def create
   if @note.save
     respond_to do |format|
       format.turbo_stream
-      format.html { redirect_to root_path, notice: "Note added!" }
+      format.html { redirect_to book_path(@book), notice: "Note added successfully." }
     end
   else
     respond_to do |format|
