@@ -9,17 +9,16 @@
 	<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
 
 	<!-- Display book rating if available -->
-	<p><strong>Rating:</strong> 
-		<% if @book.rating.present? %>
-			<%= @book.rating %> star<%= 's' if @book.rating > 1 %>
-		<% else %>
-			No rating yet
-		<% end %>
+	<% if @book.rating.present? %>
+		<p><strong>Rating:</strong> 
+		<%= @book.rating %> star<%= 's' if @book.rating > 1 %>
+	<% else %>
+		No rating yet
+	<% end %>
 	</p>
 </div>
 
 <h2>📝 Book Notes</h2>
-
 <%= form_with(model: [@book, @book.notes.build]) do |form| %>
 	<div>
 		<%= form.label :content, "Add a Note" %><br>

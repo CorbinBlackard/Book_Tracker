@@ -51,18 +51,18 @@
 		</div>
 	</nav>
 
+	<!-- Main Content Container -->
+	<div class="container">
+		<%= yield %>
+	</div>
+
 	<!-- Flash Messages (Notifications) -->
 	<% flash.each do |key, message| %>
 		<div class="flash <%= key %>">
 			<%= message %>
 		</div>
 	<% end %>
-
-	<!-- Main Content Container -->
-	<div class="container">
-		<%= yield %>
-	</div>
-
+	
 	<!-- Footer -->
 	<footer>
 		<p>Book Tracker &copy; 2025 | <a href="/about">About Us</a></p>

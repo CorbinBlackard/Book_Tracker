@@ -33,7 +33,7 @@ class BooksController < ApplicationController
   def create
     @book = current_user.books.build(book_params)
     if @book.save
-      redirect_to books_path, notice: "Book added!"
+      redirect_to root_path, notice: "Book added!"
     else
       render :new
     end
