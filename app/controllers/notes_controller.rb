@@ -1,20 +1,20 @@
 class NotesController < ApplicationController
-def create
-  @book = Book.find(params[:book_id])
-  @note = @book.notes.build(note_params)
-  @note.user = current_user
+  def create
+    @book = Book.find(params[:book_id])
+    @note = @book.notes.build(note_params)
+    @note.user = current_user
 
-  if @note.save
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to book_path(@book), notice: "Note added successfully." }
-    end
-  else
-    respond_to do |format|
-      format.html { redirect_to root_path, alert: "Failed to add note." }
+    if @note.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to book_path(@book), notice: "Note added successfully." }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, alert: "Failed to add note." }
+      end
     end
   end
-end
 
   def destroy
     @book = Book.find(params[:book_id])
