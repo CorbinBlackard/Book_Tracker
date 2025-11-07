@@ -41,7 +41,7 @@
 					<%= form.number_field :total_pages, class: "form-input" %>
 				</div>
 
-				<% if @book.read == false %> <!-- Show 'read' check box if currently reading -->
+				<% if @book.read == true %> <!-- Show 'read' check box if currently reading -->
 					<div class="checkbox-group">
 						<label class="checkbox-item">
 							<%= form.check_box :read, class: "form-checkbox" %> Read
