@@ -10,7 +10,6 @@
 		<% end %>
 		<% if user_signed_in? %>
 			<%= link_to "Add New Book ⊕", new_book_path, class: "add-book-btn" %>
-			<%= link_to "View My Books 🔍", user_path(current_user), class: "add-book-btn" %>
 		<% end %>
 	</div>
 </section>
