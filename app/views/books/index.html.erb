@@ -8,8 +8,8 @@
 			<h1>Welcome to Book Tracker</h1>
 			<p>Sign in to track all the books you've read and keep your collection organized!</p>
 		<% end %>
-		<%= link_to "Add New Book ⊕", new_book_path, class: "add-book-btn" %>
-		<% if user_signed_in? %>      
+		<% if user_signed_in? %>
+			<%= link_to "Add New Book ⊕", new_book_path, class: "add-book-btn" %>
 			<%= link_to "View My Books 🔍", user_path(current_user), class: "add-book-btn" %>
 		<% end %>
 	</div>
