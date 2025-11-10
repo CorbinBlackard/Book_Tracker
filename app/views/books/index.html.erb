@@ -39,6 +39,8 @@
 		<% @books.each do |book| %>
 			<%= render 'book_card', book: book %>
 		<% end %>
+		<% else %>
+		<p> You do not have any books... </p>
 	<% end %>
 
 <% else %>
