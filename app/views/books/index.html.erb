@@ -16,9 +16,9 @@
 
 <!-- User Books Section (Visible only if signed in) -->
 <% if user_signed_in? %>
-	<h1>📖 Currently Reading: <%= @books.currently_reading.count%></h1>
-	<% if @books.currently_reading.any? %>
-		<% @books.currently_reading.each do |book| %>
+	<h1>📖 Currently Reading: <%= @current_read.count%></h1>
+	<% if @current_read.any? %>
+		<% @current_read.each do |book| %>
 			<%= render 'book_card', book: book %>
 		<% end %>
 	<% else %>
@@ -32,6 +32,13 @@
 		<% end %>
 	<% else %>
 		<p>You have not finished any books yet...</p>
+	<% end %>
+
+	<h1> All Books: <%= @books.count%> </h1>
+	<% if @books.any? %>
+		<% @books.each do |book| %>
+			<%= render 'book_card', book: book %>
+		<% end %>
 	<% end %>
 
 <% else %>

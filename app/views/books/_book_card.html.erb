@@ -25,18 +25,13 @@
             <%= form_with(model: book, url: book_path(book), method: :patch) do |form| %>
                <div class="read-toggle">
                   <%= form.hidden_field :read, value: !book.read %>
-                  <%= form.submit "Mark as Read", class: "read-button unread" %>
+                  <%= form.submit "Finished", class: "read-button unread" %>
                </div>
             <% end %>
          <% end %>
 
          <!-- Toggle Currently Reading Checkbox -->
-         <%= form_with(model: book, url: book_path(book), method: :patch) do |form| %>
-            <label>
-               <%= form.check_box :currently_reading, checked: book.currently_reading, onchange: "this.form.submit();" %>
-               Currently Reading
-            </label>
-         <% end %>
+	
 
          <% if book.read %>
             <!-- Show Rating if the Book is Finished -->
@@ -62,7 +57,7 @@
                   <%= form.label :content, "Add a Note?" %><br>
                   <%= form.text_area :content, rows: 3 %>
                </div>
-               <%= form.submit "Add Note" %>
+               <%= form.submit "Add Note", class: "button" %>
             <% end %>
          </div>
 

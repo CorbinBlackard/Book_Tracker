@@ -15,7 +15,6 @@ class BooksController < ApplicationController
       @books = current_user.books # All books associated with the current user
       @finished_books = current_user.books.where(read: true)  # Books marked as 'read'
       @current_read = current_user.books.where(read: false)   # Books that are still being read
-      @finished_books_count = current_user.books.where(read: true).count  # Total count of finished books
     end
   end
 
