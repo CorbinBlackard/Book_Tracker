@@ -1,4 +1,4 @@
-<div class="book-list">
+`<div class="book-list">
 	<div class="book-item">
 		<!-- Book Title Toggle Button -->
 		<button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
@@ -7,89 +7,99 @@
 
 		<!-- Book Details Section -->
 		<div id="book-details-<%= book.id %>" class="book-details">
-			<!-- Basic Info -->
-			<p><strong>Author:</strong> <%= book.author %></p>
-			<p><strong>Genre:</strong> <%= book.genre %></p>
-			<p>
-				<strong>Status:</strong>
-				<% if book.read? %>
-					Finished
-				<% elsif book.currently_reading? %>
-					Currently Reading
-				<% else %>
-					Not Started
-				<% end %>
-			</p>
+		<!-- Basic Info -->
+		<p><strong>Author:</strong> <%= book.author %></p>
+		<p><strong>Genre:</strong> <%= book.genre %></p>
 
+		<!-- Status -->
+		<p>
+			<strong>Status:</strong>
 			<% if book.read? %>
-				<!-- Finished → Option to revert to Currently Reading -->
-				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :read, value: false %>
-					<%= form.hidden_field :currently_reading, value: true %>
-					<%= form.submit "Mark as Currently Reading", class: "read-button unread" %>
-				<% end %>
-
+				Finished
 			<% elsif book.currently_reading? %>
-				<!-- Currently Reading → Mark as Complete -->
-				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :read, value: true %>
-					<%= form.hidden_field :currently_reading, value: false %>
-					<%= form.submit "Mark as Complete", class: "read-button unread" %>
-				<% end %>
-
+				Currently Reading
 			<% else %>
+				Not Started
+			<% end %>
+		</p>
+
+		<!-- Toggle Buttons and Progress -->
+		<% if book.read? %>
+			<!-- Finished → Option to revert to Currently Reading -->
+			<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+				<%= form.hidden_field :read, value: false %>
+				<%= form.hidden_field :currently_reading, value: true %>
+				<%= form.submit "Mark as Currently Reading", class: "read-button unread" %>
+			<% end %>
+
+		<% elsif book.currently_reading? %>
+			<!-- Currently Reading → Mark as Complete -->
+			<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+				<%= form.hidden_field :read, value: true %>
+				<%= form.hidden_field :currently_reading, value: false %>
+				<%= form.submit "Mark as Complete", class: "read-button unread" %>
+			<% end %>
+
+			<!-- Reading Progress -->
+			<p><strong>Progress:</strong> <%= "#{book.page_number} / #{book.total_pages} Pages" %></p>
+			<div class="progress-bar">
+				<div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
+			</div>
+			<span class="progress-text"><%= "#{book.progress_percentage}%" %></span>
+
+		<% else %>
 			<!-- Not Started → Start Reading -->
-				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :currently_reading, value: true %>
-					<%= form.hidden_field :read, value: false %>
-					<%= form.submit "Start Reading", class: "read-button unread" %>
-				<% end %>
+			<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+				<%= form.hidden_field :currently_reading, value: true %>
+				<%= form.hidden_field :read, value: false %>
+				<%= form.submit "Start Reading", class: "read-button unread" %>
 			<% end %>
+		<% end %>
 
-			<% unless !book.read? and !book.currently_reading? %> <!-- This marks book as not started so doesnt show 'mark not started' btn -->
-				<!-- Temporary: Mark as Not Started -->
-				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :read, value: false %>
-					<%= form.hidden_field :currently_reading, value: false %>
-					<%= form.submit "Mark as Not Started", class: "read-button unread" %>
-				<% end %>
+		<% unless !book.read? and !book.currently_reading? %>
+			<!-- Temporary: Mark as Not Started -->
+			<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+				<%= form.hidden_field :read, value: false %>
+				<%= form.hidden_field :currently_reading, value: false %>
+				<%= form.submit "Mark as Not Started", class: "read-button unread" %>
 			<% end %>
+		<% end %>
 
-			<!-- Rating -->
-			<p>
-				<strong>Rating:</strong>
-				<%= book.read? ? "#{book.rating} stars" : "Finish the book to add rating" %>
-			</p>
+		<!-- Rating -->
+		<p>
+			<strong>Rating:</strong>
+			<%= book.read? ? "#{book.rating} stars" : "Finish the book to add rating" %>
+		</p>
 
-			<!-- Notes Section -->
-			<h3>📝 Book Notes</h3>
-			<% if book.notes.any? %>
-				<ul id="notes-list-<%= book.id %>">
-					<%= render partial: "notes/note", collection: book.notes, as: :note %>
-				</ul>
-			<% else %>
-				<p>No notes available for this book.</p>
+		<!-- Notes Section -->
+		<h3>📝 Book Notes</h3>
+		<% if book.notes.any? %>
+			<ul id="notes-list-<%= book.id %>">
+				<%= render partial: "notes/note", collection: book.notes, as: :note %>
+			</ul>
+		<% else %>
+			<p>No notes available for this book.</p>
+		<% end %>
+
+		<!-- Add Note Form -->
+		<div id="new_note_form_<%= book.id %>">
+			<%= form_with(model: [book, book.notes.build]) do |form| %>
+				<div>
+				<%= form.label :content, "Add a Note?" %><br>
+				<%= form.text_area :content, rows: 3 %>
+				</div>
+				<%= form.submit "Add Note", class: "button" %>
 			<% end %>
+		</div>
 
-			<!-- Add Note Form -->
-			<div id="new_note_form_<%= book.id %>">
-				<%= form_with(model: [book, book.notes.build]) do |form| %>
-					<div>
-						<%= form.label :content, "Add a Note?" %><br>
-						<%= form.text_area :content, rows: 3 %>
-					</div>
-					<%= form.submit "Add Note", class: "button" %>
-				<% end %>
-			</div>
-
-			<!-- Actions -->
-			<div class="book-actions">
-				<%= link_to "Edit", edit_book_path(book), class: "button" %>
-				<%= link_to "Show", book_path(book), class: "button" %>
-				<%= form_with(model: book, method: :delete) do |form| %>
-					<%= form.submit "Destroy", data: { confirm: "Are you sure you want to delete this book?" }, class: "button delete-button" %>
-				<% end %>
-			</div>
+		<!-- Actions -->
+		<div class="book-actions">
+			<%= link_to "Edit", edit_book_path(book), class: "button" %>
+			<%= link_to "Show", book_path(book), class: "button" %>
+			<%= form_with(model: book, method: :delete) do |form| %>
+				<%= form.submit "Destroy", data: { confirm: "Are you sure you want to delete this book?" }, class: "button delete-button" %>
+			<% end %>
+		</div>
 		</div>
 	</div>
 </div>
@@ -97,25 +107,23 @@
 <!-- JavaScript for Toggling Book Details -->
 <script>
 function toggleDetails(bookId) {
-	const details = document.getElementById("book-details-" + bookId);
-
-	if (details.classList.contains("active")) {
-		details.style.maxHeight = details.scrollHeight + "px";
-		void details.offsetHeight; // Force reflow
-		details.style.maxHeight = "0px";
-		details.classList.remove("active");
-
-		details.addEventListener("transitionend", () => {
-		details.style.visibility = "hidden";
-		details.style.padding = "0 10px";
-		}, { once: true });
-	} else {
-		details.classList.add("active");
-		details.style.visibility = "visible";
-		details.style.padding = "10px";
-		requestAnimationFrame(() => {
-		details.style.maxHeight = details.scrollHeight + "px";
-		});
-	}
+const details = document.getElementById("book-details-" + bookId);
+if (details.classList.contains("active")) {
+	details.style.maxHeight = details.scrollHeight + "px";
+	void details.offsetHeight;
+	details.style.maxHeight = "0px";
+	details.classList.remove("active");
+	details.addEventListener("transitionend", () => {
+	details.style.visibility = "hidden";
+	details.style.padding = "0 10px";
+	}, { once: true });
+} else {
+	details.classList.add("active");
+	details.style.visibility = "visible";
+	details.style.padding = "10px";
+	requestAnimationFrame(() => {
+	details.style.maxHeight = details.scrollHeight + "px";
+	});
 }
-</script>
+}
+</script>`
