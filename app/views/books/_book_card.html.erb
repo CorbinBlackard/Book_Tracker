@@ -10,26 +10,48 @@
 			<!-- Basic Info -->
 			<p><strong>Author:</strong> <%= book.author %></p>
 			<p><strong>Genre:</strong> <%= book.genre %></p>
-			<p><strong>Status:</strong> <%= book.read? ? "Finished" : "Unfinished" %></p>
+			<p>
+				<strong>Status:</strong>
+				<% if book.read? %>
+					Finished
+				<% elsif book.currently_reading? %>
+					Currently Reading
+				<% else %>
+					Not Started
+				<% end %>
+			</p>
 
-			<% unless book.read? %>
-			<!-- Reading Progress (Unfinished) -->
-				<p><strong>Progress:</strong> <%= "#{book.page_number} / #{book.total_pages} Pages" %></p>
-				<div class="progress-bar">
-					<div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
-				</div>
-				<span class="progress-text"><%= "#{book.progress_percentage}%" %></span>
-
-				<!-- Mark as Complete -->
+			<% if book.read? %>
+				<!-- Finished → Option to revert to Currently Reading -->
 				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :read, value: !book.read? %>
+					<%= form.hidden_field :read, value: false %>
+					<%= form.hidden_field :currently_reading, value: true %>
+					<%= form.submit "Mark as Currently Reading", class: "read-button unread" %>
+				<% end %>
+
+			<% elsif book.currently_reading? %>
+				<!-- Currently Reading → Mark as Complete -->
+				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+					<%= form.hidden_field :read, value: true %>
+					<%= form.hidden_field :currently_reading, value: false %>
 					<%= form.submit "Mark as Complete", class: "read-button unread" %>
 				<% end %>
-				<% else %>
-				<!-- Mark as Current Read -->
+
+			<% else %>
+			<!-- Not Started → Start Reading -->
 				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
-					<%= form.hidden_field :read, value: !book.read? %>
-					<%= form.submit "Mark as Current Read", class: "read-button unread" %>
+					<%= form.hidden_field :currently_reading, value: true %>
+					<%= form.hidden_field :read, value: false %>
+					<%= form.submit "Start Reading", class: "read-button unread" %>
+				<% end %>
+			<% end %>
+
+			<% unless !book.read? and !book.currently_reading? %> <!-- This marks book as not started so doesnt show 'mark not started' btn -->
+				<!-- Temporary: Mark as Not Started -->
+				<%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
+					<%= form.hidden_field :read, value: false %>
+					<%= form.hidden_field :currently_reading, value: false %>
+					<%= form.submit "Mark as Not Started", class: "read-button unread" %>
 				<% end %>
 			<% end %>
 

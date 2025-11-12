@@ -12,9 +12,15 @@ class BooksController < ApplicationController
   # Display a list of all books, along with the finished and currently reading books
   def index
     if user_signed_in?
+      @current_read ||= []
+      @finished_books ||= []
+      @not_started ||= []
+      @books ||= []
+
       @books = current_user.books # All books associated with the current user
       @finished_books = current_user.books.where(read: true)  # Books marked as 'read'
-      @current_read = current_user.books.where(read: false)   # Books that are still being read
+      @current_read = current_user.books.where(currently_reading: true)   # Books that are still being read
+      @not_started = @books.where(read: false, currently_reading: false)
     end
   end
 
