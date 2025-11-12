@@ -1,310 +1,280 @@
 /* ==============================================
-   General Styles & Reusable Components
+   🎨 Theme Variables
    ============================================== */
-
-/* Common styles for elements like .hero, .card, and .book-section */
-.common-box {
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Base structure for full-page layout */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background-color: #1d1f27;
-    color: #d1d1d6;
-    line-height: 1.6;
-    padding-top: 60px;
-}
-
-/* Container for main content */
-.container {
-    flex: 1;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    padding-bottom: 80px;
+:root {
+	--bg-dark: #1d1f27;
+	--bg-mid: #2a2a3b;
+	--bg-light: #3a3a3a;
+	--border: #a0a0a0;
+	--text-light: #d1d1d6;
+	--accent: #4e92d0;
+	--shadow: rgba(0, 0, 0, 0.2);
 }
 
 /* ==============================================
-   Navbar Styles
+   🧱 Layout & Global
    ============================================== */
+html,
+body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+	background-color: var(--bg-dark);
+	color: var(--text-light);
+	line-height: 1.6;
+	padding-top: 60px;
+}
 
+.container {
+	flex: 1;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem 2rem 80px;
+}
+
+.common-box,
+.card,
+.book-section,
+.book-card,
+.form-card {
+	border-radius: 12px;
+	box-shadow: 0 4px 6px var(--shadow);
+}
+
+/* ==============================================
+   🧭 Navbar
+   ============================================== */
 .navbar {
-    background-color: #212339;
-    padding: .5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    /* Fix the navbar at the top */
-    top: 0;
-    /* Stick it to the top of the page */
-    left: 0;
-    /* Ensure it starts from the left edge */
-    width: 100%;
-    /* Ensure it spans the entire width of the viewport */
-    z-index: 1000;
-    /* Keep it above other content */
+	background: #212339;
+	padding: .5rem;
+	box-shadow: 0 2px 4px var(--shadow);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
 }
 
 .navbar-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
+	list-style: none;
+	display: flex;
+	gap: 2rem;
+	margin: 0;
+	padding: 0;
 }
 
 .navbar a {
-    color: #d1d1d6;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s;
+	color: var(--text-light);
+	text-decoration: none;
+	font-weight: 500;
+	transition: color 0.2s;
 }
 
 .navbar a:hover {
-    color: #4e92d0;
+	color: var(--accent);
 }
 
 /* ==============================================
-   Hero Section
+   💬 Hero
    ============================================== */
-
 .hero {
-    background-color: #2a2a3b;
-    padding: 4rem 2rem;
-    text-align: center;
-    margin: 2rem auto;
-    max-width: 85vw;
-    /* Inherits from .common-box */
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+	background: var(--bg-mid);
+	padding: 4rem 2rem;
+	text-align: center;
+	margin: 2rem auto;
+	max-width: 85vw;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #ffffff;
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+	color: #fff;
 }
 
 .hero p {
-    font-size: 1.25rem;
-    color: #d1d1d6;
-    max-width: 600px;
-    margin: 0 auto;
+	font-size: 1.25rem;
+	color: var(--text-light);
+	max-width: 600px;
+	margin: 0 auto;
 }
 
 /* ==============================================
-   Button Styles
+   🔘 Buttons
    ============================================== */
-
 .add-book-btn,
-.button {
-    background-color: transparent;
-    color: #f8f9fa;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: 600;
-    border: 2px solid #2C3E50;
-    border-radius: 30px;
-    text-decoration: none;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-align: center;
-    margin-top: 10px;
+.button,
+.form-button {
+	background: transparent;
+	color: #f8f9fa;
+	border: 2px solid #2C3E50;
+	border-radius: 30px;
+	padding: 12px 20px;
+	font-size: 16px;
+	font-weight: 600;
+	cursor: pointer;
+	text-align: center;
+	display: inline-block;
+	margin-top: 10px;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .add-book-btn:hover,
-.button:hover {
-    background-color: rgba(44, 62, 80, 0.1);
-    color: #2C3E50;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.add-book-btn:active,
-.button:active {
-    background-color: rgba(44, 62, 80, 0.2);
-    color: #ffffff;
-    transform: translateY(0);
+.button:hover,
+.form-button:hover {
+	background: rgba(44, 62, 80, 0.1);
+	color: var(--accent);
+	transform: translateY(-2px);
+	box-shadow: 0 0 10px var(--accent);
 }
 
 .add-book-btn:focus,
-.button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.3);
-}
-
-/* Glowing effect on hover */
-.add-book-btn:hover {
-    box-shadow: 0 0 10px rgba(78, 146, 208, 0.8);
+.button:focus,
+.form-button:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.3);
 }
 
 /* ==============================================
-   Book Listings & Card Layouts
+   📚 Book Sections Layout
    ============================================== */
-
-.card,
-.book-section {
-    background-color: #2a2a3b;
-    color: #f0f0f0;
-    padding: 1.5rem;
-    /* Inherits from .common-box */
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+.books-sections {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-top: 20px;
 }
 
 .book-section {
-    flex: 1;
-    min-width: 320px;
-    max-width: 100%;
-    border: 1px solid #a0a0a0;
+	flex: 1;
+	min-width: 300px;
+	background: var(--bg-mid);
+	padding: 16px;
+	border: 1px solid var(--border);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }
 
-/* Individual Book Card */
+.book-section p:last-child {
+	margin-top: auto;
+	opacity: 0.8;
+}
+
+/* ==============================================
+   📘 Book Cards
+   ============================================== */
 .book-card {
-    background-color: #3A3A3A;
-    color: #F0F0F0;
-    border: 1px solid #A0A0A0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-    flex: 0 0 200px;
+	background: var(--bg-light);
+	color: #f0f0f0;
+	border: 1px solid var(--border);
+	padding: 20px;
+	border-radius: 10px;
+	transition: all 0.3s ease;
 }
 
 .book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+	transform: translateY(-5px);
+	box-shadow: 0 6px 15px var(--shadow);
 }
 
 /* ==============================================
-   Book Title Toggle Button
+   📖 Book Details & Toggles
    ============================================== */
-
 .book-title-btn {
-    background-color: #2a2a3b;
-    color: white;
-    border: 3px solid #444;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    border-radius: 30px;
+	background: var(--bg-mid);
+	color: #fff;
+	border: 3px solid #444;
+	padding: 10px;
+	width: 100%;
+	text-align: left;
+	font-size: 16px;
+	cursor: pointer;
+	margin-top: 10px;
+	border-radius: 30px;
 }
 
 .book-title-btn:hover {
-    background-color: #666;
+	background: #666;
 }
-
-/* ==============================================
-   Progress Bar
-   ============================================== */
-
-.progress-bar {
-    background-color: #ddd;
-    border-radius: 5px;
-    width: 100%;
-    height: 10px;
-    margin-top: 5px;
-}
-
-.progress {
-    background-color: #4e92d0;
-    height: 100%;
-    border-radius: 5px;
-}
-
-/* ==============================================
-   Book Details Section
-   ============================================== */
 
 .book-details {
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.4s ease, padding 0.4s ease;
 	padding: 0 10px;
-	background-color: #33334d;
-	border-right: 1px solid #444;
-	border-bottom: 1px solid #444;
-	border-left: 1px solid #444;
+	background: #33334d;
+	border: 1px solid #444;
 	border-radius: 20px;
 	visibility: hidden;
 }
+
 .book-details.active {
 	max-height: 500px;
 	padding: 10px;
-	height: auto;
 	visibility: visible;
 }
 
 .note {
-	background-color: #2a2a3b;
+	background: var(--bg-mid);
 	padding: 10px 15px;
 	border-radius: 8px;
 	margin-bottom: 10px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-	color: #f0f0f0;
 }
 
 /* ==============================================
-	Footer Styles
-	============================================== */
-footer {
-	background-color: #212339;
-	color: #d1d1d6;
-	text-align: center;
-	width: 100%;
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: 999;
-}
-
-/* ==============================================
-   Form Styling (Dark Theme)
+   📈 Progress Bars
    ============================================== */
+.progress-bar {
+	background: #ddd;
+	border-radius: 5px;
+	width: 100%;
+	height: 10px;
+	margin-top: 5px;
+}
 
+.progress {
+	background: var(--accent);
+	height: 100%;
+	border-radius: 5px;
+}
+
+/* ==============================================
+   🧾 Forms
+   ============================================== */
 .form-card {
-	background-color: #2a2a3b;
-	border-radius: 12px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-	padding: 2rem;
+	background: var(--bg-mid);
 	color: #f0f0f0;
 	max-width: 800px;
 	margin: 0 auto;
 	border: 1px solid #444;
-	padding-top: 0rem;
-	padding-right: 4rem
+	padding: 2rem 4rem 2rem 2rem;
 }
 
 .form-title {
 	text-align: center;
-	color: #ffffff;
+	color: #fff;
 	font-weight: 700;
 	font-size: 1.75rem;
 	margin-bottom: 1.5rem;
 }
 
 .alert-box {
-	background-color: rgba(255, 77, 77, 0.1);
+	background: rgba(255, 77, 77, 0.1);
 	border: 1px solid #ff4d4d;
 	color: #ffb3b3;
 	padding: 1rem;
@@ -320,27 +290,26 @@ footer {
 
 .form-label {
 	display: block;
-	margin-bottom: 0.5rem;
+	margin-bottom: .5rem;
 	font-weight: 600;
-	color: #d1d1d6;
 }
 
 .form-input,
 .form-select {
-	background-color: #3a3a4a;
+	background: #3a3a4a;
 	border: 1px solid #555;
 	color: #f0f0f0;
 	border-radius: 8px;
 	padding: 10px;
 	width: 100%;
 	font-size: 1rem;
-	transition: border 0.3s ease, box-shadow 0.3s ease;
+	transition: border 0.3s, box-shadow 0.3s;
 }
 
 .form-input:focus,
 .form-select:focus {
 	outline: none;
-	border-color: #4e92d0;
+	border-color: var(--accent);
 	box-shadow: 0 0 6px rgba(78, 146, 208, 0.6);
 }
 
@@ -353,15 +322,14 @@ footer {
 .checkbox-item {
 	display: flex;
 	align-items: center;
-	gap: 0.5rem;
-	color: #d1d1d6;
+	gap: .5rem;
 	font-weight: 500;
 }
 
 .form-checkbox {
 	width: 18px;
 	height: 18px;
-	accent-color: #4e92d0;
+	accent-color: var(--accent);
 	cursor: pointer;
 }
 
@@ -370,20 +338,16 @@ footer {
 	margin-top: 2rem;
 }
 
-.form-button {
-	border: 2px solid #4e92d0;
-	color: #f8f9fa;
-	background-color: transparent;
-	padding: 12px 30px;
-	border-radius: 30px;
-	font-size: 16px;
-	font-weight: 600;
-	transition: all 0.3s ease;
-}
-
-.form-button:hover {
-	background-color: rgba(78, 146, 208, 0.1);
-	color: #4e92d0;
-	box-shadow: 0 0 10px rgba(78, 146, 208, 0.6);
-	transform: translateY(-2px);
+/* ==============================================
+   ⚓ Footer
+   ============================================== */
+footer {
+	background: #212339;
+	color: var(--text-light);
+	text-align: center;
+	width: 100%;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 999;
 }
