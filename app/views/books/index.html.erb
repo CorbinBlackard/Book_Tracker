@@ -7,6 +7,8 @@
       <% else %>
          <h1>Welcome to Book Tracker</h1>
          <p>Sign in to track all the books you've read and keep your collection organized!</p>
+         <%= link_to "Login", new_user_session_path, class: "nav-link button" %>
+			<%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
       <% end %>
 
       <% if user_signed_in? %>
