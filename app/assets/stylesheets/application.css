@@ -151,10 +151,10 @@ body {
 	color: var(--text-light);
 	padding: 10px 20px;
 	border-radius: 12px;
-	font-weight: 700;
-	margin: 10px 0;
+	font-weight: 800;
+	margin: 10px 40px;
 	text-align: center;
-	box-shadow: 0 4px 6px var(--shadow);
+	box-shadow: 0 14px 6px var(--shadow);
 	font-size: 24px;
 }
 
