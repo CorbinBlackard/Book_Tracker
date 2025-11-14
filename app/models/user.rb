@@ -5,4 +5,9 @@ class User < ApplicationRecord
         :recoverable, :rememberable, :validatable
   has_many :books, dependent: :destroy
   has_many :notes, dependent: :destroy
+
+  def top_genre
+    genre_counts = books.map { |b| b.genre.strip.capitalize }.tally
+    genre_counts.max_by { |genre, count| count }&.first
+  end
 end

@@ -22,6 +22,8 @@ class BooksController < ApplicationController
          @current_read = current_user.books.where(currently_reading: true)   # Books that are still being read
          @not_started = @books.where(read: false, currently_reading: false)
 
+         @top_genre = current_user.top_genre
+
          # Collect available genres from this user's books (unique, sorted)
          @genres = @books.pluck(:genre).compact.uniq.sort
 

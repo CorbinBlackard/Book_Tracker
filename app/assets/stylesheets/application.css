@@ -145,42 +145,56 @@ body {
 	outline: none;
 	box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.3);
 }
-		genre-links {
-	   	display: flex;
-	   	gap: 10px;
-	   	flex-wrap: wrap;
-	   	margin: 20px 0;
-	   }
-	
-	   .genre-button {
-	   	background: transparent;
-	   	color: var(--text-light);
-	   	border: 2px solid #2C3E50;
-	   	border-radius: 30px;
-	   	padding: 8px 16px;
-	   	font-size: 14px;
-	   	font-weight: 600;
-	   	cursor: pointer;
-	   	text-decoration: none;
-	   	transition: all 0.3s ease;
-	   	display: inline-block;
-	   }
-	
-	   .genre-button:hover {
-	   	background: rgba(44, 62, 80, 0.2);
-	   	color: var(--accent);
-	   	transform: translateY(-2px);
-	   	box-shadow: 0 0 10px var(--accent);
-	   }
-	
-	   .genre-button.active {
-	   	background: var(--accent);
-	   	color: #fff;
-	   	border-color: var(--accent);
-	   	box-shadow: 0 0 10px var(--accent);
-	   }
-	
-	   /* ==============================================
+
+.top-genre {
+	background: var(--bg-mid);
+	color: var(--text-light);
+	padding: 10px 20px;
+	border-radius: 12px;
+	font-weight: 700;
+	margin: 10px 0;
+	text-align: center;
+	box-shadow: 0 4px 6px var(--shadow);
+	font-size: 24px;
+}
+
+
+	genre-links {
+		display: flex;
+		gap: 10px;
+		flex-wrap: wrap;
+		margin: 20px 0;
+	}
+
+	.genre-button {
+		background: transparent;
+		color: var(--text-light);
+		border: 2px solid #2C3E50;
+		border-radius: 30px;
+		padding: 8px 16px;
+		font-size: 19px;
+		font-weight: 600;
+		cursor: pointer;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
+
+	.genre-button:hover {
+		background: rgba(44, 62, 80, 0.2);
+		color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 0 10px var(--accent);
+	}
+
+	.genre-button.active {
+		background: var(--accent);
+		color: #fff;
+		border-color: var(--accent);
+		box-shadow: 0 0 10px var(--accent);
+	}
+
+	/* ==============================================
 
 /* ==============================================
    📚 Book Sections Layout

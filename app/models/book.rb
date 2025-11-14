@@ -17,6 +17,14 @@ class Book < ApplicationRecord
         ((page_number.to_f / total_pages) * 100).round(2)
     end
 
+    # app/models/book.rb
+    before_save :normalize_genre
+
+    def normalize_genre
+      return if genre.blank?
+      self.genre = genre.strip.split.map(&:capitalize).join(" ")
+    end
+
     # Class Methods
     # Method to count finished books (read: true)
     def self.finished_books_count

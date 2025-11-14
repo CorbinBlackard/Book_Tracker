@@ -18,6 +18,22 @@
 <!-- User Books Section (Visible only if signed in) -->
 <% if user_signed_in? %>
 
+   <div class="top-genre">
+      <p>
+         📚 Most-read genre: 
+         <strong>
+            <%= link_to books_path(genre: @top_genre), class: "genre-button" do %>
+               <%= @top_genre %>
+               <% if @top_genre == "Fantasy" %>
+                  🐦‍🔥🐉
+               <% elsif @top_genre == "Scifi" %>
+                  🧬🚀
+               <% end %>
+            <% end %>
+         </strong>
+      </p>
+   </div>
+   
    <!-- Genre links -->
    <div class="genre-links">
       <h3> Filter by Genre: </h3>
