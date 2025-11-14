@@ -172,7 +172,7 @@ body {
 		border: 2px solid #2C3E50;
 		border-radius: 30px;
 		padding: 8px 16px;
-		font-size: 19px;
+		font-size: 22px;
 		font-weight: 600;
 		cursor: pointer;
 		text-decoration: none;
@@ -180,14 +180,28 @@ body {
 		display: inline-block;
 	}
 
-	.genre-button:hover {
+	.genre-button2 {
+		background: transparent;
+		color: var(--text-light);
+		border: 2px solid #2C3E50;
+		border-radius: 30px;
+		padding: 8px 16px;
+		font-size: 14px;
+		font-weight: 600;
+		cursor: pointer;
+		text-decoration: none;
+		transition: all 0.3s ease;
+		display: inline-block;
+	}
+
+	.genre-button:hover, .genre-button2:hover {
 		background: rgba(44, 62, 80, 0.2);
 		color: var(--accent);
 		transform: translateY(-2px);
 		box-shadow: 0 0 10px var(--accent);
 	}
 
-	.genre-button.active {
+	.genre-button.active, .genre-button2.active {
 		background: var(--accent);
 		color: #fff;
 		border-color: var(--accent);
