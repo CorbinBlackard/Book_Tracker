@@ -93,6 +93,7 @@ body {
 	text-align: center;
 	margin: 2rem auto;
 	max-width: 85vw;
+	border-radius: 3rem;
 }
 
 .hero h1 {

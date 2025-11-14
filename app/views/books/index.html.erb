@@ -22,7 +22,7 @@
 
    <div class="top-genre">
       <p>
-         📚 Most-read genre: 
+         📚 Most-Read Genre: 
          <strong>
             <%= link_to books_path(genre: @top_genre), class: "genre-button" do %>
                <%= @top_genre %>
@@ -53,7 +53,7 @@
    
    <!-- Genre links -->
    <div class="genre-links">
-      <h3> Filter by Genre: </h3>
+      <h3> Filter Books by Genre: </h3>
       <%= link_to "All", books_path, class: ["genre-button2", ("active" unless params[:genre].present?)].compact.join(" ") %>
       <% @genres.each do |g| %>
          <%= link_to g, books_path(genre: g), class: ["genre-button2", ("active" if params[:genre] == g)].compact.join(" ") %>
