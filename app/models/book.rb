@@ -7,6 +7,8 @@ class Book < ApplicationRecord
     validates :rating, inclusion: { in: 1..5, message: "must be between 1 and 5" }, allow_nil: true
     belongs_to :user
     has_many :notes, dependent: :destroy
+    has_many :wishlists
+    has_many :users_wishlist, through: :wishlists, source: :user
 
     # Instance Methods
     # Method to calculate the progress percentage

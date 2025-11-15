@@ -1,33 +1,41 @@
 class BooksController < ApplicationController
-   # Before running certain actions, find the book based on the ID in the URL
-   before_action :set_book, only: %i[show edit update destroy]
-   before_action :authenticate_user!, except: [ :index, :show ]
-   before_action :authorize_user!, only: [ :edit, :update, :destroy ] # Ensure only the user who created the book can modify it
+   # Set the book before actions that need it
+   before_action :set_book, only: %i[show edit update destroy add_to_wishlist remove_from_wishlist]
+
+   # Ensure the user is authenticated for most actions
+   before_action :authenticate_user!, except: %i[index show]
+
+   # Only allow the owner to modify their book
+   before_action :authorize_user!, only: %i[edit update destroy]
 
    # Redirect user to the home page after sign out
    def after_sign_out_path_for(resource_or_scope)
-      root_path # Or whichever path you want to redirect to after logout
+      root_path
    end
 
-   # Display a list of all books, along with the finished and currently reading books
+   # POST /books/:id/add_to_wishlist
+   def add_to_wishlist
+      current_user.wishlist_books << @book unless current_user.wishlist_books.include?(@book)
+      redirect_back(fallback_location: root_path)
+   end
+
+   # DELETE /books/:id/remove_from_wishlist
+   def remove_from_wishlist
+      current_user.wishlist_books.delete(@book)
+      redirect_back(fallback_location: root_path)
+   end
+
+   # Display a list of all books
    def index
       if user_signed_in?
-         @current_read ||= []
-         @finished_books ||= []
-         @not_started ||= []
-         @books ||= []
-
-         @books = current_user.books # All books associated with the current user
-         @finished_books = current_user.books.where(read: true)  # Books marked as 'read'
-         @current_read = current_user.books.where(currently_reading: true)   # Books that are still being read
+         @books = current_user.books
+         @finished_books = @books.where(read: true)
+         @current_read = @books.where(currently_reading: true)
          @not_started = @books.where(read: false, currently_reading: false)
-
+         @wishlist_books = current_user.wishlist_books
          @top_genre = current_user.top_genre
-
-         # Collect available genres from this user's books (unique, sorted)
          @genres = @books.pluck(:genre).compact.uniq.sort
 
-         # If a genre param is present, filter these collections by that genre
          if params[:genre].present?
             selected = params[:genre]
             @books = @books.where(genre: selected)
@@ -40,10 +48,10 @@ class BooksController < ApplicationController
 
    # Show the details of a single book
    def show
-     # No need to define any logic here, as @book is already set by set_book before this action
+     # @book is already set by set_book
    end
 
-   # Initialize a new empty book object for the form
+   # Initialize a new book
    def new
       @book = Book.new
    end
@@ -58,12 +66,12 @@ class BooksController < ApplicationController
       end
    end
 
-   # Render the edit form for the book
+   # Render the edit form
    def edit
-     # The @book instance is already set by the 'before_action' callback
+     # @book is already set by set_book
    end
 
-   # Update the existing book with the new form data
+   # Update an existing book
    def update
       if @book.update(book_params)
          redirect_to books_path, notice: "Book was successfully updated."
@@ -72,13 +80,13 @@ class BooksController < ApplicationController
       end
    end
 
-   # Delete a book from the database and redirect to the books list
+   # Delete a book
    def destroy
       @book.destroy
       redirect_to books_path, notice: "Book was successfully deleted."
    end
 
-   # Calculate the progress percentage for the current book based on pages read and total pages
+   # Calculate reading progress percentage
    def progress_percentage
       return 0 unless @book.total_pages && @book.page_number
       (@book.page_number.to_f / @book.total_pages.to_f) * 100
@@ -86,17 +94,17 @@ class BooksController < ApplicationController
 
    private
 
-   # Set the book instance variable before certain actions (show, edit, update, destroy)
+   # Find the book by ID
    def set_book
       @book = Book.find(params[:id])
    end
 
-   # Strong parameters to whitelist the fields allowed for creating or updating a book
+   # Strong parameters for books
    def book_params
-      params.require(:book).permit(:title, :author, :currently_reading, :genre, :page_number, :read, :rating, :total_pages)
+      params.require(:book).permit(:title, :author, :currently_reading, :genre, :page_number, :read, :rating, :total_pages, :wishlist)
    end
 
-   # Ensure only the user who created the book can modify it
+   # Ensure only the owner can edit/update/destroy
    def authorize_user!
       redirect_to books_path, alert: "You are not authorized to do that." unless @book.user == current_user
    end

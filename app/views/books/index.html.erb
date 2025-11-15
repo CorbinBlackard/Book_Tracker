@@ -8,7 +8,7 @@
          <h1>Welcome to Book Tracker</h1>
          <p>Sign in to track all the books you've read and keep your collection organized!</p>
          <%= link_to "Login", new_user_session_path, class: "nav-link button" %>
-			<%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
+         <%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
       <% end %>
 
       <% if user_signed_in? %>
@@ -17,12 +17,10 @@
    </div>
 </section>
 
-<!-- User Books Section (Visible only if signed in) -->
 <% if user_signed_in? %>
-
    <div class="top-genre">
       <p>
-         📚 Most-Read Genre: 
+         📚 Most-Read Genre:
          <strong>
             <%= link_to books_path(genre: @top_genre), class: "genre-button" do %>
                <%= @top_genre %>
@@ -50,15 +48,16 @@
          </strong>
       </p>
    </div>
-   
+
    <!-- Genre links -->
-	<h3> Filter Books by Genre: </h3>
+   <h3> Filter Books by Genre: </h3>
    <div class="genre-links">
       <%= link_to "All", books_path, class: ["genre-button2", ("active" unless params[:genre].present?)].compact.join(" ") %>
       <% @genres.each do |g| %>
          <%= link_to g, books_path(genre: g), class: ["genre-button2", ("active" if params[:genre] == g)].compact.join(" ") %>
       <% end %>
    </div>
+
    <% if params[:genre].present? %>
       <p>Showing only <strong><%= params[:genre] %></strong> :</p>
    <% end %>
@@ -67,57 +66,71 @@
       <!-- Currently Reading -->
       <section class="book-section">
          <h1>📖 Currently Reading: <%= @current_read.count %></h1>
-			<div class="scroll-box">
-				<% if @current_read.any? %>
-					<% @current_read.each do |book| %>
-						<%= render 'book_card', book: book %>
-					<% end %>
-				<% else %>
-					<p>You are not currently reading any books... Do better</p>
-				<% end %>
-			</div>
+         <div class="scroll-box">
+            <% if @current_read.any? %>
+               <% @current_read.each do |book| %>
+                  <%= render 'book_card', book: book %>
+               <% end %>
+            <% else %>
+               <p>You are not currently reading any books... Do better</p>
+            <% end %>
+         </div>
       </section>
 
       <!-- Finished Books -->
       <section class="book-section">
          <h1>✅ Finished Books: <%= @finished_books.count %></h1>
-			<div class="scroll-box">
-				<% if @finished_books.any? %>
-					<% @finished_books.each do |book| %>
-						<%= render 'book_card', book: book %>
-					<% end %>
-				<% else %>
-					<p>You have not finished any books yet...</p>
-				<% end %>
-			</div>
+         <div class="scroll-box">
+            <% if @finished_books.any? %>
+               <% @finished_books.each do |book| %>
+                  <%= render 'book_card', book: book, wishlist: false %>
+               <% end %>
+            <% else %>
+               <p>You have not finished any books yet...</p>
+            <% end %>
+         </div>
       </section>
 
-		<!-- Not Started Books -->
+      <!-- Not Started Books -->
       <section class="book-section">
-			<h1>📚 Not Started: <%= @not_started.count %></h1>
-			<div class="scroll-box">
-				<% if @not_started.any? %>
-					<% @not_started.each do |book| %>
-						<%= render 'book_card', book: book %>
-					<% end %>
-				<% else %>
-					<p>Books you haven't started yet</p>
-				<% end %>
-			</div>
+         <h1>📚 Not Started: <%= @not_started.count %></h1>
+         <div class="scroll-box">
+            <% if @not_started.any? %>
+               <% @not_started.each do |book| %>
+                  <%= render 'book_card', book: book, wishlist: false %>
+               <% end %>
+            <% else %>
+               <p>Books you haven't started yet</p>
+            <% end %>
+         </div>
+      </section>
+
+      <!-- Wishlist Section -->
+      <section class="book-section">
+         <h2>📌 Wishlist: <%= @wishlist_books.count %></h2>
+         <div class="scroll-box">
+            <% if @wishlist_books.any? %>
+               <% @wishlist_books.each do |book| %>
+                  <%= render 'book_card', book: book, wishlist: true %>
+               <% end %>
+            <% else %>
+               <p>Your wishlist is empty!</p>
+            <% end %>
+         </div>
       </section>
 
       <!-- All Books -->
       <section class="book-section">
-			<h1>All Books: <%= @books.count %></h1>
-			<div class="scroll-box">
-				<% if @books.any? %>
-					<% @books.each do |book| %>
-						<%= render 'book_card', book: book %>
-					<% end %>
-				<% else %>
-					<p>You do not have any books...</p>
-				<% end %>
-			</div>
+         <h1>All Books: <%= @books.count %></h1>
+         <div class="scroll-box">
+            <% if @books.any? %>
+               <% @books.each do |book| %>
+                  <%= render 'book_card', book: book, wishlist: false %>
+               <% end %>
+            <% else %>
+               <p>You do not have any books...</p>
+            <% end %>
+         </div>
       </section>
    </div>
 <% else %>
