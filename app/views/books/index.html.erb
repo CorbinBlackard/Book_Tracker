@@ -52,8 +52,8 @@
    </div>
    
    <!-- Genre links -->
+	<h3> Filter Books by Genre: </h3>
    <div class="genre-links">
-      <h3> Filter Books by Genre: </h3>
       <%= link_to "All", books_path, class: ["genre-button2", ("active" unless params[:genre].present?)].compact.join(" ") %>
       <% @genres.each do |g| %>
          <%= link_to g, books_path(genre: g), class: ["genre-button2", ("active" if params[:genre] == g)].compact.join(" ") %>
@@ -64,6 +64,8 @@
    <% end %>
 
    <div class="books-sections">
+
+
       <!-- Currently Reading -->
       <section class="book-section">
          <h1>📖 Currently Reading: <%= @current_read.count %></h1>
@@ -81,13 +83,15 @@
       <!-- Finished Books -->
       <section class="book-section">
          <h1>✅ Finished Books: <%= @finished_books.count %></h1>
-         <% if @finished_books.any? %>
-            <% @finished_books.each do |book| %>
-               <%= render 'book_card', book: book %>
-            <% end %>
-         <% else %>
-            <p>You have not finished any books yet...</p>
-         <% end %>
+			<div class="scroll-box">
+				<% if @finished_books.any? %>
+					<% @finished_books.each do |book| %>
+						<%= render 'book_card', book: book %>
+					<% end %>
+				<% else %>
+					<p>You have not finished any books yet...</p>
+				<% end %>
+			</div>
       </section>
 
       <section class="book-section">
