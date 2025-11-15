@@ -414,7 +414,7 @@ footer {
    🖱 Scrollable Boxes
    ============================================== */
 .scroll-box {
-	max-height: 500px;
+	max-height: 300px;
 	overflow-y: auto;
 	padding-right: 8px;
 	margin-top: 10px;

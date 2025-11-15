@@ -1,12 +1,12 @@
 <div class="book-list">
    <div class="book-item">
       <!-- Book Title Toggle Button -->
-      <button class="book-title-btn" onclick="toggleDetails('<%= book.id %>')">
+      <button class="book-title-btn" onclick="toggleDetails('<%= section_prefix %>-<%= book.id %>')">
          <%= book.title %> ▼
       </button>
 
       <!-- Book Details Section -->
-      <div id="book-details-<%= book.id %>" class="book-details">
+      <div id="<%= section_prefix %>-<%= book.id %>" class="book-details">
 
          <!-- Basic Info -->
          <p><strong>Author:</strong> <%= book.author %></p>
@@ -24,30 +24,26 @@
             <% end %>
          </p>
 
-         <%# --- Reading Status Toggle Buttons --- %>
+         <!-- Reading Status Toggle Buttons -->
          <% if book.read? %>
-            <!-- Finished → Revert to Currently Reading -->
             <%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
                <%= form.hidden_field :read, value: false %>
                <%= form.hidden_field :currently_reading, value: true %>
                <%= form.submit "Mark as Currently Reading", class: "button" %>
             <% end %>
          <% elsif book.currently_reading? %>
-            <!-- Currently Reading → Mark as Complete -->
             <%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
                <%= form.hidden_field :read, value: true %>
                <%= form.hidden_field :currently_reading, value: false %>
                <%= form.submit "Mark as Complete", class: "button" %>
             <% end %>
 
-            <!-- Reading Progress -->
             <p><strong>Progress:</strong> <%= "#{book.page_number} / #{book.total_pages} Pages" %></p>
             <div class="progress-bar">
-               <div class="progress" style="width: <%= book.progress_percentage %>%;"></div>
+               <div class="progress" style="width: <%= book.progress_percentage %>%"></div>
             </div>
             <span class="progress-text"><%= "#{book.progress_percentage}%" %></span>
          <% else %>
-            <!-- Not Started → Start Reading -->
             <%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
                <%= form.hidden_field :currently_reading, value: true %>
                <%= form.hidden_field :read, value: false %>
@@ -55,7 +51,6 @@
             <% end %>
          <% end %>
 
-         <%# Optional: Mark as Not Started %>
          <% unless !book.read? && !book.currently_reading? %>
             <%= form_with(model: book, url: book_path(book), method: :patch, class: "read-toggle") do |form| %>
                <%= form.hidden_field :read, value: false %>
@@ -111,26 +106,45 @@
    </div>
 </div>
 
-<!-- JavaScript for Toggling Book Details -->
 <script>
-function toggleDetails(bookId) {
-   const details = document.getElementById("book-details-" + bookId);
-   if (details.classList.contains("active")) {
-      details.style.maxHeight = details.scrollHeight + "px";
-      void details.offsetHeight;
-      details.style.maxHeight = "0px";
-      details.classList.remove("active");
-      details.addEventListener("transitionend", () => {
-         details.style.visibility = "hidden";
-         details.style.padding = "0 10px";
-      }, { once: true });
-   } else {
-      details.classList.add("active");
-      details.style.visibility = "visible";
-      details.style.padding = "10px";
-      requestAnimationFrame(() => {
+   function toggleDetails(bookId) {
+      const details = document.getElementById(bookId);
+      if (details.classList.contains("active")) {
          details.style.maxHeight = details.scrollHeight + "px";
-      });
+         void details.offsetHeight;
+         details.style.maxHeight = "0px";
+         details.classList.remove("active");
+         details.addEventListener("transitionend", () => {
+            details.style.visibility = "hidden";
+            details.style.padding = "0 10px";
+         }, { once: true });
+      } else {
+         details.classList.add("active");
+         details.style.visibility = "visible";
+         details.style.padding = "10px";
+         requestAnimationFrame(() => {
+            details.style.maxHeight = details.scrollHeight + "px";
+         });
+      }
    }
-}
+
+   // Close book card when clicking outside
+   document.addEventListener('click', function(event) {
+   // Get all active book-details elements
+   const openCards = document.querySelectorAll('.book-details.active');
+
+   openCards.forEach(card => {
+      // If click is outside the card AND not on a toggle button
+      if (!card.contains(event.target) && !event.target.classList.contains('book-title-btn')) {
+         card.style.maxHeight = card.scrollHeight + "px"; // needed to trigger transition
+         void card.offsetHeight;
+         card.style.maxHeight = "0px";
+         card.classList.remove("active");
+         card.addEventListener("transitionend", () => {
+            card.style.visibility = "hidden";
+            card.style.padding = "0 10px";
+         }, { once: true });
+      }
+   });
+});
 </script>
