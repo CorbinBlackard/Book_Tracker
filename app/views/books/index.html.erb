@@ -64,21 +64,19 @@
    <% end %>
 
    <div class="books-sections">
-
-
       <!-- Currently Reading -->
       <section class="book-section">
          <h1>📖 Currently Reading: <%= @current_read.count %></h1>
-         <% if @current_read.any? %>
-            <% @current_read.each do |book| %>
-               <%= render 'book_card', book: book %>
-            <% end %>
-         <% else %>
-            <p>You are not currently reading any books... Do better</p>
-         <% end %>
+			<div class="scroll-box">
+				<% if @current_read.any? %>
+					<% @current_read.each do |book| %>
+						<%= render 'book_card', book: book %>
+					<% end %>
+				<% else %>
+					<p>You are not currently reading any books... Do better</p>
+				<% end %>
+			</div>
       </section>
-
-
 
       <!-- Finished Books -->
       <section class="book-section">
@@ -94,27 +92,32 @@
 			</div>
       </section>
 
+		<!-- Not Started Books -->
       <section class="book-section">
-         <h1>📚 Not Started: <%= @not_started.count %></h1>
-         <% if @not_started.any? %>
-            <% @not_started.each do |book| %>
-               <%= render 'book_card', book: book %>
-            <% end %>
-         <% else %>
-            <p>Books you haven't started yet</p>
-         <% end %>
+			<h1>📚 Not Started: <%= @not_started.count %></h1>
+			<div class="scroll-box">
+				<% if @not_started.any? %>
+					<% @not_started.each do |book| %>
+						<%= render 'book_card', book: book %>
+					<% end %>
+				<% else %>
+					<p>Books you haven't started yet</p>
+				<% end %>
+			</div>
       </section>
 
       <!-- All Books -->
       <section class="book-section">
-         <h1>All Books: <%= @books.count %></h1>
-            <% if @books.any? %>
-            <% @books.each do |book| %>
-               <%= render 'book_card', book: book %>
-            <% end %>
-         <% else %>
-            <p>You do not have any books...</p>
-         <% end %>
+			<h1>All Books: <%= @books.count %></h1>
+			<div class="scroll-box">
+				<% if @books.any? %>
+					<% @books.each do |book| %>
+						<%= render 'book_card', book: book %>
+					<% end %>
+				<% else %>
+					<p>You do not have any books...</p>
+				<% end %>
+			</div>
       </section>
    </div>
 <% else %>
