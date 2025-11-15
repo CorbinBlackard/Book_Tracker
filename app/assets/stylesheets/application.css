@@ -89,7 +89,7 @@ body {
    ============================================== */
 .hero {
 	background: var(--bg-mid);
-	padding: 4rem 2rem;
+	padding: 2rem 2rem;
 	text-align: center;
 	margin: 2rem auto;
 	max-width: 85vw;
@@ -159,11 +159,18 @@ body {
 	font-size: 24px;
 }
 
+/* ==============================================
+   Sticky Genre Links
+   ============================================== */
 .genre-links {
-	display: flex;
-	gap: 10px;
-	flex-wrap: wrap;
-	margin: 20px 0;
+   position: sticky;       /* Stick relative to parent container */
+   top: 80px;              /* Adjust so it sits below your fixed navbar (60px + spacing) */
+   z-index: 100;           /* Stay above other content */
+   padding: 10px 0;        /* Optional: add some vertical padding */
+   display: flex;
+   gap: 10px;
+   flex-wrap: wrap;
+   margin: 20px 0;         /* Existing margin */
 }
 
 .genre-button,
@@ -211,7 +218,7 @@ body {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	gap: 20px;
+	gap: 50px;
 	flex-wrap: wrap;
 	margin-top: 20px;
 }

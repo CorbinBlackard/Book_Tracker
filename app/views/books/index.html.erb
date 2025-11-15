@@ -28,16 +28,7 @@
       else "📘"
    end %>
 
-   <div class="top-genre">
-      <p>
-         📚 Most-Read Genre:
-         <strong>
-            <%= link_to books_path(genre: @top_genre), class: "genre-button" do %>
-               <%= @top_genre %> <%= emoji %>
-            <% end %>
-         </strong>
-      </p>
-   </div>
+ 
 
    <!-- Genre links -->
    <h3>Filter Books by Genre:</h3>
@@ -52,9 +43,20 @@
       <p>Showing only <strong><%= params[:genre] %></strong> :</p>
    <% end %>
 
+	  <div class="top-genre">
+      <p>
+         📚 Most-Read Genre:
+         <strong>
+            <%= link_to books_path(genre: @top_genre), class: "genre-button" do %>
+               <%= @top_genre %> <%= emoji %>
+            <% end %>
+         </strong>
+      </p>
+   </div>
+
    <div class="books-sections">
       <!-- Currently Reading -->
-      <section class="book-section">
+      <section class="book-sections">
          <h1>📖 Currently Reading: <%= @current_read.count %></h1>
          <div class="scroll-box">
             <% if @current_read.any? %>
@@ -68,7 +70,7 @@
       </section>
 
       <!-- Finished Books -->
-      <section class="book-section">
+      <section class="book-sections">
          <h1>✅ Finished Books: <%= @finished_books.count %></h1>
          <div class="scroll-box">
             <% if @finished_books.any? %>
@@ -82,7 +84,7 @@
       </section>
 
       <!-- Not Started Books -->
-      <section class="book-section">
+      <section class="book-sections">
          <h1>📚 Not Started: <%= @not_started.count %></h1>
          <div class="scroll-box">
             <% if @not_started.any? %>
