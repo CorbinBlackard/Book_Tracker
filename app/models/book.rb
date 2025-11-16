@@ -13,10 +13,10 @@ class Book < ApplicationRecord
     # Instance Methods
     # Method to calculate the progress percentage
     def progress_percentage
-        return 0 if total_pages == 0 # Prevent division by zero
+        return 0 if total_pages == 0 and page_number == 0 # Prevent error if no page number inserted
 
         # Calculate and return the percentage of pages read
-        ((page_number.to_f / total_pages) * 100).round(2)
+        ((page_number.to_f / total_pages.to_f) * 100).round(2)
     end
 
     # app/models/book.rb
