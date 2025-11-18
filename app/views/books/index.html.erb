@@ -17,10 +17,11 @@
 <% if user_signed_in? %>
    <%# Top Genre with emoji %>
    <% emoji = case @top_genre
-      when "Fantasy" then "🐲✨"
-      when "Scifi" then "🛸🧬"
+      when "Fantasy" then "🏰🗡️🏞️"
+      when "Scifi" then "🛰️🧬🪐"
       when "Historical Fiction" then "🏺📜"
       when "Mystery" then "🕵️‍♂️🔍"
+		when "Thriller" then "🩸💀🔪 "
       when "Romance" then "❤️💌"
       when "Horror" then "👻🩸"
       when "Biography" then "👤📖"
@@ -43,7 +44,7 @@
       <p>Showing only <strong><%= params[:genre] %></strong> :</p>
    <% end %>
 
-	  <div class="top-genre">
+	<div class="top-genre">
       <p>
          📚 Most-Read Genre:
          <strong>
@@ -110,6 +111,19 @@
             <% end %>
          </div>
       </section>
+
+		<section class="book-section">
+			<h2> Favorites: <%= @favorite_books.count %> </h2>
+			<div class="scroll-box">
+				<% if @favorite_books.any? %>
+					<% @favorite_books.each do |book| %>
+						<%= render 'book_card', book: book, section_prefix: 'favorites'%>
+					<% end %>
+				<% else %>
+					<p> NONE </p>
+				<% end %>
+			</div>
+		</section>
 
       <!-- All Books -->
       <section class="book-section">

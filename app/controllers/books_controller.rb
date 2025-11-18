@@ -42,7 +42,7 @@ class BooksController < ApplicationController
         @wishlist_books = current_user.wishlist_books
         @top_genre = current_user.top_genre
         @genres = @books.pluck(:genre).compact.uniq.sort
-        @favorite_book = @books.where(favorite_book: true)
+        @favorite_books = @books.where(favorite: true)
 
         if params[:genre].present?
             selected = params[:genre]
@@ -50,7 +50,7 @@ class BooksController < ApplicationController
             @finished_books = @finished_books.where(genre: selected)
             @current_read = @current_read.where(genre: selected)
             @not_started = @not_started.where(genre: selected)
-            @favorite_book = @books.where(favorite_book: true)
+            @favorite_books = @books.where(favorite: true)
 
         end
       end

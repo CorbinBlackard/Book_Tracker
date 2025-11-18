@@ -41,7 +41,7 @@ class Book < ApplicationRecord
         where(currently_reading: true).count
     end
 
-    def self.favorite_book
-      where(favorite_book: true)
+    def self.favorite_books
+      where(favorite: true)
     end
 end
