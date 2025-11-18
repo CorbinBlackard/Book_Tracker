@@ -40,4 +40,8 @@ class Book < ApplicationRecord
     def self.currently_reading_count
         where(currently_reading: true).count
     end
+
+    def self.favorite_book
+      where(favorite_book: true)
+    end
 end

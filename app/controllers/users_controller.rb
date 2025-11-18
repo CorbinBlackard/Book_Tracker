@@ -9,5 +9,6 @@ class UsersController < ApplicationController
       @current_read = @user.books.where(currently_reading: true)  # Books that are not finished
       @finished_books = @user.books.where(read: true) # Books that are finished
       @not_started = @user.books.where(read: false, currently_reading: false)
+      @favorite_book = @user.books.where(favorite_book: true)
    end
 end

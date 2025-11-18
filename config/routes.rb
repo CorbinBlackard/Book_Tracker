@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     member do
       post :add_to_wishlist
       delete :remove_from_wishlist
+      patch :toggle_favorite
     end
   end
 end

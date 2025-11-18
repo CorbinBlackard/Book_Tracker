@@ -301,6 +301,28 @@ body {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+.favorite-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: none;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+	color: #f5d142;
+}
+.book-item {
+	position: relative;
+}
+
+.favorite-button:hover {
+	transform: scale(1.2);
+}
+
+.favorite-button form {
+	display: inline;
+}
+
 /* ==============================================
    📈 Progress Bars
    ============================================== */

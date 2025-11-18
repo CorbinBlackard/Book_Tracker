@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_15_220236) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_18_020800) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_15_220236) do
     t.integer "total_pages"
     t.bigint "user_id", null: false
     t.boolean "currently_reading", default: false
+    t.boolean "favorite", default: false
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
