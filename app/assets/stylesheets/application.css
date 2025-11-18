@@ -303,13 +303,13 @@ body {
 
 .favorite-button {
 	position: absolute;
-	top: 10px;
-	right: 10px;
+	top: 12px;
+	right: 4px;
 	background: none;
 	border: none;
 	font-size: 24px;
 	cursor: pointer;
-	color: #f5d142;
+	color: var(--accent);
 }
 .book-item {
 	position: relative;

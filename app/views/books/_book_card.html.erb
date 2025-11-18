@@ -3,6 +3,9 @@
       <!-- Book Title Toggle Button -->
       <button class="book-title-btn" onclick="toggleDetails('<%= section_prefix %>-<%= book.id %>')">
          <%= book.title %> ▼
+			<%= button_to toggle_favorite_book_path(book), method: :patch, class: "favorite-button" do %>
+            <%= book.favorite ? "★" : "☆" %>
+         <% end %>
       </button>
 
       <!-- Book Details Section -->
@@ -102,9 +105,7 @@
             <% end %>
          </div>
 
-         <%= button_to toggle_favorite_book_path(book), method: :patch, class: "favorite-button" do %>
-            <%= book.favorite ? "★" : "☆" %>
-         <% end %>
+         
 
       </div>
    </div>
