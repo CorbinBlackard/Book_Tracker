@@ -163,7 +163,6 @@ body {
    Sticky Genre Links
    ============================================== */
 .genre-links {
-   position: sticky;       /* Stick relative to parent container */
    top: 80px;              /* Adjust so it sits below your fixed navbar (60px + spacing) */
    z-index: 100;           /* Stay above other content */
    padding: 10px 0;        /* Optional: add some vertical padding */
@@ -472,4 +471,49 @@ footer {
 .scroll-box {
 	scrollbar-width: thin;
 	scrollbar-color: #f5f5f5 #2a2a3b;
+}
+
+/* Sidebar */
+.main-wrapper {
+	display: flex;
+	gap: 20px; /* space between sidebar and content */
+	align-items: baseline;
+}
+
+/* Stats panel on the left */
+.book-stats-panel {
+	width: 250px;
+	/* fixed width */
+	flex-shrink: 0;
+	/* prevent shrinking */
+	background-color: #2a2a3b;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+	/* optional: make it float with scroll */
+	position: sticky;
+	top: 100px;
+	/* distance from top of viewport */
+}
+
+/* Main content */
+.books-container {
+	flex: 1;
+	/* take remaining space */
+	padding-bottom: 8rem;
+	padding-right: 8rem;
+}
+
+@media (max-width: 768px) {
+	.main-wrapper {
+		flex-direction: column;
+	}
+
+	.book-stats-panel {
+		width: 100%;
+		position: relative;
+		top: auto;
+		margin-bottom: 20px;
+	}
 }

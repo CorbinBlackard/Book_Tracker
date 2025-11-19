@@ -59,8 +59,14 @@
 		</nav>
 
 		<!-- Main Content Container -->
-		<div class="container">
-			<%= yield %>
+		<div class="main-wrapper">
+			<div class="book-stats-panel">
+				<%= render "book_stats" %>
+			</div>
+
+			<div class="books-container">
+				<%= yield %> <!-- your book sections -->
+			</div>
 		</div>
 
 		<!-- Flash Messages (Notifications) -->
