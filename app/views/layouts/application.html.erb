@@ -1,82 +1,81 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title><%= content_for(:title) || "Book Tracker" %></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="mobile-web-app-capable" content="yes">
+	<head>
+		<title><%= content_for(:title) || "Book Tracker" %></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
 
-	<!-- Security tokens for Rails forms -->
-	<%= csrf_meta_tags %>
-	<%= csp_meta_tag %>
+		<!-- Security tokens for Rails forms -->
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
 
-	<%= yield :head %>
+		<%= yield :head %>
 
-	<!-- PWA manifest for installable apps (optional) -->
-	<%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+		<!-- PWA manifest for installable apps (optional) -->
+		<%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-	<!-- Favicon and Icons -->
-	<link rel="icon" href="/icon.png" type="image/png">
-	<link rel="icon" href="/icon.svg" type="image/svg+xml">
-	<link rel="apple-touch-icon" href="/icon.png">
+		<!-- Favicon and Icons -->
+		<link rel="icon" href="/icon.png" type="image/png">
+		<link rel="icon" href="/icon.svg" type="image/svg+xml">
+		<link rel="apple-touch-icon" href="/icon.png">
 
-	<!-- Stylesheets -->
-	<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-	<%= javascript_importmap_tags %>
+		<!-- Stylesheets -->
+		<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+		<%= javascript_importmap_tags %>
 
-	<script>
-		// Save scroll position before leaving page
-		window.addEventListener("beforeunload", () => {
-			localStorage.setItem("scrollPosition", window.scrollY);
-		});
+		<script>
+			// Save scroll position before leaving page
+			window.addEventListener("beforeunload", () => {
+				localStorage.setItem("scrollPosition", window.scrollY);
+			});
 
-		// Restore scroll position after page loads
-		window.addEventListener("load", () => {
-			const scrollY = localStorage.getItem("scrollPosition");
-			if (scrollY !== null) window.scrollTo(0, parseInt(scrollY));
-		});
-	</script>
+			// Restore scroll position after page loads
+			window.addEventListener("load", () => {
+				const scrollY = localStorage.getItem("scrollPosition");
+				if (scrollY !== null) window.scrollTo(0, parseInt(scrollY));
+			});
+		</script>
+	</head>
 
-</head>
 
+	<body>
+		<!-- Navigation Bar -->
+		<nav class="navbar">
+			<div class="navbar-content">
+				<!-- App Branding -->
+				<a href="/" class="brand">Book Tracker</a>
 
-<body>
-	<!-- Navigation Bar -->
-	<nav class="navbar">
-		<div class="navbar-content">
-			<!-- App Branding -->
-			<a href="/" class="brand">Book Tracker</a>
-
-			<!-- Authentication Links -->
-			<div class="nav-auth">
-				<% if user_signed_in? %>
-					<%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, method: :delete, class: "nav-link button" %>
-				<% else %>
-					<%= link_to "Login", new_user_session_path, class: "nav-link button" %>
-					<%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
-				<% end %>
+				<!-- Authentication Links -->
+				<div class="nav-auth">
+					<% if user_signed_in? %>
+						<%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, method: :delete, class: "nav-link button" %>
+					<% else %>
+						<%= link_to "Login", new_user_session_path, class: "nav-link button" %>
+						<%= link_to "Sign Up", new_user_registration_path, class: "nav-link button" %>
+					<% end %>
+				</div>
 			</div>
+		</nav>
+
+		<!-- Main Content Container -->
+		<div class="container">
+			<%= yield %>
 		</div>
-	</nav>
 
-	<!-- Main Content Container -->
-	<div class="container">
-		<%= yield %>
-	</div>
+		<!-- Flash Messages (Notifications) -->
+		<% flash.each do |key, message| %>
+			<div class="flash <%= key %>">
+				<%= message %>
+			</div>
+		<% end %>
+		
+		<!-- Footer -->
+		<footer>
+			<p>Book Tracker &copy; 2025 | <a href="/about">About Us</a></p>
+		</footer>
 
-	<!-- Flash Messages (Notifications) -->
-	<% flash.each do |key, message| %>
-		<div class="flash <%= key %>">
-			<%= message %>
-		</div>
-	<% end %>
-	
-	<!-- Footer -->
-	<footer>
-		<p>Book Tracker &copy; 2025 | <a href="/about">About Us</a></p>
-	</footer>
-
-	<!-- Required for Turbo (Rails UJS) -->
-	<%= javascript_include_tag "rails-ujs" %>
-</body>
+		<!-- Required for Turbo (Rails UJS) -->
+		<%= javascript_include_tag "rails-ujs" %>
+	</body>
 </html>
