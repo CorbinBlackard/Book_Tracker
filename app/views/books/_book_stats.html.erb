@@ -1,9 +1,17 @@
 <div class="book-stats-sidebar">
-  <h2>📊 Book Stats</h2>
-  <ul>
-    <li><strong>Total Books:</strong> <%= @total_books %></li>
-    <li><strong>Books Read:</strong> <%= @books_read.count %></li>
-    <li><strong>Total Pages Read:</strong> <%= @total_pages_read %></li>
-    <li><strong>Average Rating:</strong> <%= @average_rating %> ⭐</li>
-  </ul>
+   <h2>📊 Book Stats</h2>
+   <ul>
+      <li><strong>Total Books:</strong> <%= @total_books %></li>
+      <li><strong>Books Read:</strong> <%= @books_read.count %></li>
+      <li><strong>Total Pages Read:</strong> <%= @total_pages_read %></li>
+      <li><strong>Average Rating:</strong> <%= @average_rating %> ⭐</li>
+
+      <ul>
+         5 Star Books
+         <% @five_star_books.each do |book| %>
+            <li><%= link_to book.title, book_path(book) %></li>
+         <% end %>
+      </ul>
+      
+   </ul>
 </div>
