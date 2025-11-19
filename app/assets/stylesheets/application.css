@@ -518,3 +518,10 @@ footer {
 		margin-bottom: 20px;
 	}
 }
+
+ul li .btn {
+	display: block;
+	margin-bottom: 8px;
+	color: goldenrod;
+	text-decoration: none;
+}
