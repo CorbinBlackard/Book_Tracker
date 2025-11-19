@@ -23,20 +23,22 @@
 	<!-- Stylesheets -->
 	<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 	<%= javascript_importmap_tags %>
+
+	<script>
+		// Save scroll position before leaving page
+		window.addEventListener("beforeunload", () => {
+			localStorage.setItem("scrollPosition", window.scrollY);
+		});
+
+		// Restore scroll position after page loads
+		window.addEventListener("load", () => {
+			const scrollY = localStorage.getItem("scrollPosition");
+			if (scrollY !== null) window.scrollTo(0, parseInt(scrollY));
+		});
+	</script>
+
 </head>
 
-<script>
-	// Save scroll position before leaving page
-	window.addEventListener("beforeunload", () => {
-		localStorage.setItem("scrollPosition", window.scrollY);
-	});
-
-	// Restore scroll position after page loads
-	window.addEventListener("load", () => {
-		const scrollY = localStorage.getItem("scrollPosition");
-		if (scrollY !== null) window.scrollTo(0, parseInt(scrollY));
-	});
-</script>
 
 <body>
 	<!-- Navigation Bar -->
