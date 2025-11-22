@@ -70,7 +70,7 @@ class BooksController < ApplicationController
 
   # Show the details of a single book
   def show
-    # @book is already set by set_book
+    @genres = current_user.books.pluck(:genre).compact.uniq.sort
   end
 
   # Initialize a new book
