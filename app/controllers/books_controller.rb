@@ -45,6 +45,8 @@ class BooksController < ApplicationController
       @top_genre = current_user.top_genre
       @genres = @books.pluck(:genre).compact.uniq.sort
       @favorite_books = @books.where(favorite: true)
+      @sort_by_rating = @books.pluck(:rating).compact.uniq.sort_by(&:to_i)
+      @sort_by_rating = [ 1, 2, 3, 4, 5 ]
 
       if params[:genre].present?
         selected = params[:genre]
@@ -52,6 +54,15 @@ class BooksController < ApplicationController
         @finished_books = @finished_books.where(genre: selected).order(created_at: :desc)
         @current_read = @current_read.where(genre: selected).order(created_at: :desc)
         @not_started = @not_started.where(genre: selected).order(created_at: :desc)
+        @favorite_books = @books.where(favorite: true).order(created_at: :desc)
+      end
+
+      if params[:rating].present?
+        selected = params[:rating]
+        @books = @books.where(rating: selected).order(created_at: :desc)
+        @finished_books = @finished_books.where(rating: selected).order(created_at: :desc)
+        @current_read = @current_read.where(rating: selected).order(created_at: :desc)
+        @not_started = @not_started.where(rating: selected).order(created_at: :desc)
         @favorite_books = @books.where(favorite: true).order(created_at: :desc)
       end
     end
