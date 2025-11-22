@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   # Set the book before actions that need it
-  before_action :set_book, only: %i[show edit update destroy add_to_wishlist remove_from_wishlist]
+  before_action :set_book, only: %i[show edit update destroy add_to_wishlist remove_from_wishlist toggle_favorite]
 
   # Ensure the user is authenticated for most actions
   before_action :authenticate_user!, except: %i[index show]
