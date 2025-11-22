@@ -37,7 +37,7 @@ class BooksController < ApplicationController
   # Display a list of all books
   def index
     if user_signed_in?
-      @books = current_user.books
+      @books = current_user.books.order(created_at: :desc)
       @finished_books = @books.where(read: true)
       @current_read = @books.where(currently_reading: true)
       @not_started = @books.where(read: false, currently_reading: false)
@@ -48,11 +48,11 @@ class BooksController < ApplicationController
 
       if params[:genre].present?
         selected = params[:genre]
-        @books = @books.where(genre: selected)
-        @finished_books = @finished_books.where(genre: selected)
-        @current_read = @current_read.where(genre: selected)
-        @not_started = @not_started.where(genre: selected)
-        @favorite_books = @books.where(favorite: true)
+        @books = @books.where(genre: selected).order(created_at: :desc)
+        @finished_books = @finished_books.where(genre: selected).order(created_at: :desc)
+        @current_read = @current_read.where(genre: selected).order(created_at: :desc)
+        @not_started = @not_started.where(genre: selected).order(created_at: :desc)
+        @favorite_books = @books.where(favorite: true).order(created_at: :desc)
       end
     end
   end
