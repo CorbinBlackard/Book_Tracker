@@ -136,12 +136,14 @@ class BooksController < ApplicationController
     if user_signed_in?
       @total_books = current_user.books.count
       @books_read = current_user.books.where(read: true)
+      @unread = current_user.books.where(read: false)
       @total_pages_read = @books_read.sum(:total_pages)
       @average_rating = @books_read.average(:rating)&.round(1) || 0
       @five_star_books = current_user.books.where(rating: 5)
     else
       @total_books = 0
       @books_read = []
+      @unread = []
       @total_pages_read = 0
       @average_rating = 0
       @five_star_books = []
