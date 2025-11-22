@@ -496,6 +496,7 @@ footer {
 	top: 100px;
 	/* distance from top of viewport */
 	border: solid grey;
+	box-shadow: 27px 16px 10px var(--shadow);
 }
 
 /* Main content */
