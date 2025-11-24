@@ -29,14 +29,13 @@
 			<%= form.submit "Add Note" %>
 		<% end %>
 
-		<% if @book.notes.exists? %>
-			<ul>
-				<% @book.notes.where.not(content: [nil, ""]).each do |note| %>
-					<li class="note">
-					<%= note.content %>
-					</li>
-				<% end %>
+		<% notes_to_show = @book.notes.with_content %>
+		<% if notes_to_show.any? %>
+			<ul id="notes-list-<%= @book.id %>">
+				<%= render partial: "notes/note", collection: notes_to_show, as: :note %>
 			</ul>
+		<% else %>
+			<p>No notes available for this book.</p>
 		<% end %>
 
 		<!-- Book Action Buttons -->
