@@ -1,47 +1,53 @@
-<!-- Book Title -->
-<h1><%= @book.title %></h1>
+<div class="container mt-5">
+	<div class="form-card">
+		<!-- Book Title -->
+		<h1><%= @book.title %></h1>
 
-<!-- Book Details Section -->
-<div class="book-detail-page">
-	<p><strong>Author:</strong> <%= @book.author %></p>
-	<p><strong>Genre:</strong> <%= @book.genre %></p>
-	<p><strong>Page Number:</strong> <%= @book.page_number %></p>
-	<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
+		<!-- Book Details Section -->
+		<div class="book-detail-page">
+			<p><strong>Author:</strong> <%= @book.author %></p>
+			<p><strong>Genre:</strong> <%= @book.genre %></p>
+			<p><strong>Page Number:</strong> <%= @book.page_number %></p>
+			<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
 
-	<!-- Display book rating if available -->
-	<% if @book.rating.present? %>
-		<p><strong>Rating:</strong> 
-		<%= @book.rating %> star<%= 's' if @book.rating > 1 %>
-	<% else %>
-		No rating yet
-	<% end %>
-	</p>
-</div>
+			<!-- Display book rating if available -->
+			<% if @book.rating.present? %>
+				<p><strong>Rating:</strong> 
+				<%= @book.rating %> star<%= 's' if @book.rating > 1 %>
+			<% else %>
+				No rating yet
+			<% end %>
+			</p>
+		</div>
 
-<h2>📝 Book Notes</h2>
-<%= form_with(model: [@book, @book.notes.build]) do |form| %>
-	<div>
-		<%= form.label :content, "Add a Note" %><br>
-		<%= form.text_area :content, rows: 3 %>
+		<h2>📝 Book Notes</h2>
+		<%= form_with(model: [@book, @book.notes.build]) do |form| %>
+			<div>
+				<%= form.label :content, "Add a Note" %><br>
+				<%= form.text_area :content, rows: 3 %>
+			</div>
+			<%= form.submit "Add Note" %>
+		<% end %>
+
+		<% if @book.notes.exists? %>
+			<ul>
+				<% @book.notes.where.not(content: [nil, ""]).each do |note| %>
+					<li class="note">
+					<%= note.content %>
+					</li>
+				<% end %>
+			</ul>
+		<% end %>
+
+		<!-- Book Action Buttons -->
+		<div class="book-actions">
+			<%= link_to 'Edit', edit_book_path(@book), class: "button" %>
+			<%= link_to 'Back', books_path, class: "button" %>
+		</div>
+
+		<!-- Form for deleting the book with confirmation prompt -->
+		<%= form_with(model: @book, method: :delete) do |form| %>
+			<%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
+		<% end %>
 	</div>
-	<%= form.submit "Add Note" %>
-<% end %>
-
-<ul>
-	<% @book.notes.each do |note| %>
-		<li class="note">
-			<%= note.content %>
-		</li>
-	<%end%>
-</ul>
-
-<!-- Book Action Buttons -->
-<div class="book-actions">
-	<%= link_to 'Edit', edit_book_path(@book), class: "button" %>
-	<%= link_to 'Back', books_path, class: "button" %>
 </div>
-
-<!-- Form for deleting the book with confirmation prompt -->
-<%= form_with(model: @book, method: :delete) do |form| %>
-	<%= form.submit 'Destroy', data: { confirm: 'Are you sure you want to delete this book?' }, class: "button delete-button" %>
-<% end %>

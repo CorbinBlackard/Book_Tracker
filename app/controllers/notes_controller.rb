@@ -11,7 +11,8 @@ class NotesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to root_path, alert: "Failed to add note." }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("note_form", partial: "notes/form", locals: { book: @book, note: @note }) }
+        format.html { redirect_to book_path(@book), alert: "Cannot add empty note." }
       end
     end
   end
