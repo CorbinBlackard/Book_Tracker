@@ -476,7 +476,7 @@ footer {
 /* Sidebar */
 .main-wrapper {
 	display: flex;
-	gap: 20px; /* space between sidebar and content */
+	gap: 100px; /* space between sidebar and content */
 	align-items: baseline;
 }
 
@@ -497,6 +497,7 @@ footer {
 	/* distance from top of viewport */
 	border: solid grey;
 	box-shadow: 27px 16px 10px var(--shadow);
+	margin-bottom: 8rem;
 }
 
 /* Main content */
