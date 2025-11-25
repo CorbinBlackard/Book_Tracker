@@ -2,13 +2,23 @@
    🎨 Theme Variables
    ============================================== */
 :root {
-	--bg-dark: #1d1f27;
-	--bg-mid: #2a2a3b;
-	--bg-light: #3a3a3a;
-	--border: #a0a0a0;
-	--text-light: #d1d1d6;
-	--accent: #4e92d0;
-	--shadow: rgba(0, 0, 0, 0.2);
+--bg-dark: #0d0e12;
+	/* almost black steel */
+	--bg-mid: #1d1e27;
+	/* dark steel with bluish undertone */
+	--bg-light: #2a2b37;
+	/* lighter steel with subtle bluish tint */
+	--border: #646770;
+	/* metallic gray edges */
+	--text-light: #d8d8d8;
+	/* soft off-white steel text */
+	--accent: #b899ff;
+	/* lighter lavender for active buttons / thrusters */
+	--secondary-accent: #e63946;
+	/* red for warnings / critical alerts */
+	--highlight: #d6c6ff;
+	/* luminous lavender glow for hover highlights */
+	--shadow: rgba(0, 0, 0, 0.5);
 }
 
 /* ==============================================
@@ -41,13 +51,15 @@ body {
 .form-card {
 	border-radius: 12px;
 	box-shadow: 0 4px 6px var(--shadow);
+	background: linear-gradient(145deg, var(--bg-light), var(--bg-mid));
+	border: 1px solid var(--highlight);
 }
 
 /* ==============================================
    🧭 Navbar
    ============================================== */
 .navbar {
-	background: #212339;
+	background: var(--bg-mid);	
 	padding: .5rem;
 	box-shadow: 0 2px 4px var(--shadow);
 	position: fixed;
@@ -118,7 +130,7 @@ body {
 .form-button {
 	background: transparent;
 	color: #f8f9fa;
-	border: 2px solid #2C3E50;
+	border: 2px solid var(--highlight);
 	border-radius: 30px;
 	padding: 12px 20px;
 	font-size: 16px;
@@ -129,6 +141,21 @@ body {
 	margin-top: 10px;
 	transition: all 0.3s ease;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-decoration: none;
+}
+.top-genre-btn {
+		background: transparent;
+		color: #f8f9fa;
+		border: 2px solid var(--highlight);
+		border-radius: 30px;
+		padding: 12px 20px;
+		font-size: 20px;
+		font-weight: 650;
+		cursor: pointer;
+		text-align: center;
+		transition: all 0.3s ease;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		text-decoration: none;
 }
 
 .add-book-btn:hover,
@@ -137,7 +164,8 @@ body {
 	background: rgba(44, 62, 80, 0.1);
 	color: var(--accent);
 	transform: translateY(-2px);
-	box-shadow: 0 0 10px var(--accent);
+	box-shadow: 0 0 8px var(--highlight), 0 0 16px var(--accent);
+
 }
 
 .add-book-btn:focus,
@@ -176,7 +204,7 @@ body {
 .genre-button2 {
 	background: transparent;
 	color: var(--text-light);
-	border: 2px solid #2C3E50;
+	border: 2px solid gray;
 	border-radius: 30px;
 	padding: 8px 16px;
 	font-weight: 600;
@@ -243,7 +271,7 @@ body {
    ============================================== */
 .book-card {
 	background: var(--bg-light);
-	color: #f0f0f0;
+	background: var(--bg-light);
 	border: 1px solid var(--border);
 	padding: 20px;
 	border-radius: 10px;
@@ -280,7 +308,7 @@ body {
 	overflow: hidden;
 	transition: max-height 0.4s ease, padding 0.4s ease;
 	padding: 0 10px;
-	background: #33334d;
+	background: var(--bg-light);
 	border: 1px solid #444;
 	border-radius: 20px;
 	visibility: hidden;
@@ -428,7 +456,7 @@ body {
    ⚓ Footer
    ============================================== */
 footer {
-	background: #212339;
+	background: var(--bg-mid);
 	color: var(--text-light);
 	text-align: center;
 	width: 100%;
@@ -486,7 +514,7 @@ footer {
 	/* fixed width */
 	flex-shrink: 0;
 	/* prevent shrinking */
-	background-color: #2a2a3b;
+	background: var(--bg-light);	
 	padding: 15px;
 	border-radius: 10px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -524,6 +552,5 @@ footer {
 ul li .btn {
 	display: block;
 	margin-bottom: 8px;
-	color: goldenrod;
 	text-decoration: none;
 }
