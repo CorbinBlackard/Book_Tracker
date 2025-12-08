@@ -26,7 +26,7 @@
 				<%= form.label :content, "Add a Note" %><br>
 				<%= form.text_area :content, rows: 3 %>
 			</div>
-			<%= form.submit "Add Note" %>
+			<%= form.submit "Add Note", class: 'button' %>
 		<% end %>
 
 		<% notes_to_show = @book.notes.with_content %>
