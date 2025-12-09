@@ -386,6 +386,7 @@ body {
 	margin: 0 auto;
 	border: 1px solid #444;
 	padding: 2rem 4rem 2rem 2rem;
+	text-align: center;
 }
 
 .form-title {

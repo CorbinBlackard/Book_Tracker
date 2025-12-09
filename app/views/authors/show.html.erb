@@ -1,11 +1,11 @@
 <h1>Books by <%= @name %></h1>
 
 <% if @books.any? %>
-  <ul>
-    <% @books.each do |book| %>
-      <li><%= link_to book.title, book_path(book) %></li>
-    <% end %>
-  </ul>
+   <ul>
+      <% @books.each do |book| %>
+         <li><%= link_to book.title, book_path(book), class: "book-title-link" %></li>
+      <% end %>
+   </ul>
 <% else %>
-  <p>No books from this author yet.</p>
+   <p>No books from this author yet.</p>
 <% end %>

@@ -5,7 +5,7 @@
 
 		<!-- Book Details Section -->
 		<div class="book-detail-page">
-			<p><strong>Author:</strong> <%= link_to @book.author, author_books_path(@book.author) %></p>
+			<p><strong>Author:</strong> <%= link_to @book.author, author_books_path(@book.author), class: "book-title-link" %></p>
 			<p><strong>Genre:</strong> <%= @book.genre %></p>
 			<p><strong>Page Number:</strong> <%= @book.page_number %></p>
 			<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
