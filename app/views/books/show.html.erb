@@ -6,7 +6,7 @@
 		<!-- Book Details Section -->
 		<div class="book-detail-page">
 			<p><strong>Author:</strong> <%= link_to @book.author, author_books_path(@book.author), class: "book-title-link" %></p>
-			<p><strong>Genre:</strong> <%= @book.genre %></p>
+			<p><strong>Genre:</strong> <%= @book.genre %> <%= genre_emoji(@book.genre) %> </p>
 			<% if @book.page_number?%>
 				<p><strong>Page Number:</strong> <%= @book.page_number %></p>
 			<% end %>

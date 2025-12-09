@@ -6,7 +6,6 @@
       <li><strong>Total Pages Read:</strong> <%= @total_pages_read %></li>
 		<li><strong> Books Unread: </strong> <%= @unread.count %></li>
       <li><strong>Average Rating:</strong> <%= @average_rating %> ⭐</li>
-		<li><strong>Top Rated:</strong> <%= @five_star_books.count %> </li>
 
       <%# <ul> %>
          <%# 5 Star Books %>
@@ -27,7 +26,7 @@
 	<div class="genre-links">
 		<%= link_to "All", books_path(genre: nil), class: ["genre-button2", ("active" unless params[:genre].present?)].compact.join(" ") %>
 		<% @genres.each do |g| %>
-			<%= link_to g, books_path(genre: g), class: ["genre-button2", ("active" if params[:genre] == g)].compact.join(" ") %>
+			<%= link_to "#{genre_emoji(g)} #{g}", books_path(genre: g), class: ["genre-button2", ("active" if params[:genre] == g)].compact.join(" ") %> 
 		<% end %>
 	</div>
 
