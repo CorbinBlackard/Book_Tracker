@@ -10,7 +10,7 @@
 			<% if @book.page_number?%>
 				<p><strong>Page Number:</strong> <%= @book.page_number %></p>
 			<% end %>
-			<p><strong>Read:</strong> <%= @book.read ? 'Yes' : 'No' %></p>
+			<p><strong>Status:</strong> <%= @book.read ? 'Finished' : 'Unfinished' %></p>
 
 			<!-- Display book rating if available -->
 			<% if @book.rating.present? %>

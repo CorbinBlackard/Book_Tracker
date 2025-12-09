@@ -85,7 +85,7 @@
       </section>
 
       <!-- Wishlist -->
-      <section class="book-section">
+      <section class="book-sections">
          <h2>📌 Wishlist: <%= @wishlist_books.count %></h2>
          <div class="scroll-box">
             <% if @wishlist_books.any? %>
@@ -98,7 +98,7 @@
          </div>
       </section>
 
-		<section class="book-section">
+		<section class="book-sections">
 			<h2> Favorites: <%= @favorite_books.count %> </h2>
 			<div class="scroll-box">
 				<% if @favorite_books.any? %>
@@ -112,7 +112,7 @@
 		</section>
 
       <!-- All Books -->
-      <section class="book-section">
+      <section class="book-sections">
          <h1>All Books: <%= @books.count %></h1>
          <div class="scroll-box">
             <% if @books.any? %>
