@@ -4,7 +4,7 @@ class BooksController < ApplicationController
   before_action :authorize_user!, only: %i[edit update destroy]
 
   # Load stats + genres only on index and show pages
-  before_action :set_book_stats, only: %i[index show]
+  before_action :set_book_stats, only: %i[index show edit new]
 
   # --------------------------
   # Wishlist Actions
