@@ -1,61 +1,69 @@
 class NotesController < ApplicationController
-before_action :set_book
-before_action :set_note, only: [ :edit, :update, :destroy ]
+   before_action :set_book
+   before_action :set_note, only: [ :edit, :update, :destroy ]
+   before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
-# POST /books/:book_id/notes
-def create
-   @note = @book.notes.build(note_params)
-   @note.user = current_user
 
-   if @note.save
-      respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_back(fallback_location: book_path(@book), notice: "Note added successfully.") }
-      end
-   else
-      respond_to do |format|
-      format.turbo_stream do
-         render turbo_stream: turbo_stream.replace(
-            "note_form",
-            partial: "notes/form",
-            locals: { book: @book, note: @note }
-         )
-      end
-      format.html { redirect_back(fallback_location: book_path(@book), alert: "Cannot add empty note.") }
+   # POST /books/:book_id/notes
+   def create
+      @note = @book.notes.build(note_params)
+      @note.user = current_user
+
+      if @note.save
+         respond_to do |format|
+            format.turbo_stream
+            format.html { redirect_back(fallback_location: book_path(@book), notice: "Note added successfully.") }
+         end
+      else
+         respond_to do |format|
+            format.turbo_stream do
+               render turbo_stream: turbo_stream.replace(
+                  "note_form",
+                  partial: "notes/form",
+                  locals: { book: @book, note: @note }
+               )
+         end
+            format.html { redirect_back(fallback_location: book_path(@book), alert: @note.errors.full_messages.to_sentence) }
+         end
       end
    end
-end
 
-# GET /books/:book_id/notes/:id/edit
-def edit
-end
-
-# PATCH/PUT /books/:book_id/notes/:id
-def update
-   if @note.update(note_params)
-      redirect_back(fallback_location: book_path(@book), notice: "Note updated successfully.")
-   else
-      render :edit
+   # GET /books/:book_id/notes/:id/edit
+   def edit
    end
-end
 
-# DELETE /books/:book_id/notes/:id
-def destroy
-   @note.destroy
-   redirect_back(fallback_location: book_path(@book), notice: "Note deleted successfully.")
-end
+   # PATCH/PUT /books/:book_id/notes/:id
+   def update
+      if @note.update(note_params)
+         redirect_back(fallback_location: book_path(@book), notice: "Note updated successfully.")
+      else
+         render :edit
+      end
+   end
 
-private
+   # DELETE /books/:book_id/notes/:id
+   def destroy
+      @note.destroy
+      redirect_back(fallback_location: book_path(@book), notice: "Note deleted successfully.")
+   end
 
-def set_book
-   @book = Book.find(params[:book_id])
-end
+   private
 
-def set_note
-   @note = @book.notes.find(params[:id])
-end
+   def set_book
+      @book = Book.find(params[:book_id])
+   end
 
-def note_params
-   params.require(:note).permit(:content)
-end
+   def set_note
+      @note = @book.notes.find(params[:id])
+   end
+
+   def note_params
+      params.require(:note).permit(:content)
+   end
+
+   def authorize_user!
+      unless @note.user == current_user
+         redirect_back(fallback_location: book_path(@book), alert: "You are not authorized to modify this note.")
+      end
+   end
 end
