@@ -19,7 +19,7 @@
 </div>
 
 
-<% if defined?(@books) && @books.present? %>
+<% if controller_name == "books" && action_name == "index" %>
 	<h2> 🔍 Filters </h2>
 
 	<!-- Genre Filter -->
