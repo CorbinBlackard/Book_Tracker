@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  get "authors/show"
   # Devise routes for user authentication
   devise_for :users
 
   # Health check route for uptime monitoring (optional)
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "authors/:name", to: "authors#show", as: :author_books
+  get "authors/:name", to: "authors#show", as: :author_books, constraints: { name: /.+/ }
 
   # Set the root path of the application (homepage)
   root "books#index"
